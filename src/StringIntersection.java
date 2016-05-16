@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 public class StringIntersection {
 
 	/**
@@ -15,22 +17,19 @@ public class StringIntersection {
         String output = "";
         
         int len1 = str1.length();
-        int len2 = str2.length();
-        
-        
+                
         // nested loop that checks each char in str1
         // and loops thru str2 and adds the char to output
         // if the char is in both strings and is not in output
         for(int i = 0; i < len1; i++) {
-    
-          char c = str1.charAt(i);
-    
-          for(int j =0 ; j < len2; j++) {
-            if( c == str2.charAt(j))
-              if( ! characterInString(output,c) )
-                output += c;
-          }
-    
+           	char c = str1.charAt(i);
+           	for(int j = 0 ; j < str2.length(); j++) {
+	            if( c == str2.charAt(j)) {
+	                output += c;
+	                str2 = removeCharacter(str2, j);
+	                break;
+	            }
+	        }
         }
     
         // print to console the output string of the intersection
@@ -38,18 +37,35 @@ public class StringIntersection {
 	}
 	
 	// helper function to check if a character exists in a string
-    // returns a boolean
-    public static Boolean characterInString(String str, char c) {
-    
-        int len = str.length();
-    
-        for(int i = 0; i < len; i++) {
-          if(c == str.charAt(i))
-              return true;          
-        }
-        
-        return false;
-    }
+	// returns a boolean
+	public static Boolean characterInString(String str, char c) {
+	    int len = str.length();
+	    for(int i = 0; i < len; i++) {
+	      if(c == str.charAt(i))
+	          return true;          
+	    }
+	    return false;
+	}
+		
+	// helper function to remove a character from a string
+	// takes the string and the index to be removed and does
+	// appropriate checking for bounds of the index
+	public static String removeCharacter(String str, int index) {
+		// length, zero indexed
+		int len = str.length() - 1;
+		
+		// if the index is out of bounds, return string
+		if(index > len) {
+			return str; 
+		} else {
+			// if index of char to remove is last char
+			if(index == len) return str.substring(0,index);
+			// if index is first char of string
+			else if(index == 0) return str.substring(1);
+			// else return the string as two substrings of the string before and after index
+			else return str.substring(0,index) + str.substring(index + 1);
+		}
+	}
 	
     public static void main(String[] args) { 
     	List<List<String>> testCases = new LinkedList<List<String>>();

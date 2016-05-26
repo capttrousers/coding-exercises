@@ -1,34 +1,67 @@
 
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class RandomSetGenerator {
 
-	static private SecureRandom random;
+	private Random randomNumberGenerator;
 	
-	// constructor for an instance of RandomSetGenerator
-	// takes a seed to be passed on construction
-	// default constructor uses current system time
 	public RandomSetGenerator() {
-		this(System.currentTimeMillis());     	// use the current system time for the seed to Random
+		this(new SecureRandom());
 	}
 
-	// test constructor takes a seed in order to test the random sequence
-	public RandomSetGenerator(long seed) {
-		random = new SecureRandom();
-		random.setSeed(seed);
+	public RandomSetGenerator(Random generator) {
+		randomNumberGenerator = generator;
 	}
 
-	public int[] generate(int m, int n) {
-		// m is the number of ints in the set
-		// n is the inclusive top of the range if potential values, [0 to n]
-		int[] randomSet = new int[m];
+	/**
+	 * Generate random set of integers
+	 * 
+	 * @param m Number of integers in the set
+	 * @param n Inclusive top of the range if potential values, [0 to n]
+	 * @return List of generated integers
+	 */
+	public List<Integer> generate(int m, int n) {
+		// maximum value is n + 1 because Random.nextInt(n) is exclusive
+		int maximumValue = n + 1;
+		List<Integer> randomSet = new LinkedList<Integer>();
 		
-		for(int i = 0; i < m; i++) {
-			// get the next random int, range 0 to n+1 : n + 1 because nextInt(n) is exclusive
-			randomSet[i] = random.nextInt(n+1);
+		for(int i = 0; i < m; i++) { 
+			randomSet.add(randomNumberGenerator.nextInt(maximumValue));
 		}
 		
 		return randomSet;
+	}
+	
+	public static void main(String[] args) {
+		List<List<Object>> testCases = new LinkedList<List<Object>>();
+		testCases.add(Arrays.asList(123L, 5, 10, Arrays.asList(0, 4, 8, 9, 10)));
+		testCases.add(Arrays.asList(123L, 2, 100, Arrays.asList(19, 98)));
+		testCases.add(Arrays.asList(123L, 4, 5, Arrays.asList(0, 2, 3, 5)));
+		
+		for (List<Object> testCase : testCases) {
+			long seed = (long) testCase.get(0);
+			int m = (int) testCase.get(1);
+			int n = (int) testCase.get(2);
+			List<Integer> expected = (List<Integer>) testCase.get(3);
+			List<Integer> actual = new RandomSetGenerator(new Random(seed)).generate(m, n);
+			
+			// sort so we can actually compare expected vs actual values
+			Collections.sort(expected);
+			Collections.sort(actual);			
+
+			if (expected.equals(actual)) {
+    			System.out.println("SUCCESS: test case (" + m + "," + n + ")");
+    			System.out.println(" => expected: " + expected);
+    		} else {
+    			System.out.println("FAILED:  test case (" + m + "," + n + ")");
+    			System.out.println(" => expected: " + expected);
+    			System.out.println(" => actual:   " + actual);
+    		}
+		}		
 	}
 }

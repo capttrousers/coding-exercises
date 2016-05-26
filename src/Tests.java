@@ -46,7 +46,7 @@ public class Tests {
     		
     		// to set seed global to configure tests
 //    		long seed = System.currentTimeMillis();
-    		randomSetGenerator = new RandomSetGenerator(seed);
+    		randomSetGenerator = new RandomSetGenerator(new Random(seed));
 
     		// forcing failure of comparison to print values 
 //    		int[] expected = randomSetGenerator.generate(m, n);
@@ -57,18 +57,18 @@ public class Tests {
     	
 
     	for (RandomTest testCase : testCases ) {
-    		randomSetGenerator = new RandomSetGenerator(testCase.seed);
-    		int[] actual = randomSetGenerator.generate(testCase.m, testCase.n);
+    		randomSetGenerator = new RandomSetGenerator(new Random(testCase.seed));
+    		List<Integer> actual = randomSetGenerator.generate(testCase.m, testCase.n);
     		    		
-    		if (Arrays.toString(testCase.expected).equals(Arrays.toString(actual))) {
+    		if (Arrays.toString(testCase.expected).equals(Arrays.toString(actual.toArray()))) {
     			System.out.println("SUCCESS!");
     			System.out.println("expected int array: " + Arrays.toString(testCase.expected));
-    			System.out.println("actual int array: " + Arrays.toString(actual));
+    			System.out.println("actual int array: " + Arrays.toString(actual.toArray()));
     			System.out.println();
     		} else {
     			System.out.println("FAIL");
     			System.out.println("expected int array: " + Arrays.toString(testCase.expected));
-    			System.out.println("actual int array: " + Arrays.toString(actual));
+    			System.out.println("actual int array: " + Arrays.toString(actual.toArray()));
     			System.out.println();
     		}
     		

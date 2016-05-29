@@ -16,7 +16,27 @@ public class Sudoku implements KeyListener {
 	
 
 
+	
+	public boolean isValidRow(SudokuTile tile) {
+		
+		for(int row = 0; row < 9; row++) {
+			if(tile.value == gameBoard.get(row).get(tile.column).value && row != tile.row) {
+				return false;
+			}
+		}
+		return true;
+	}
 
+	public boolean isValidColumn(SudokuTile tile) {
+		
+		for(int column = 0; column < 9; column++) {
+			if(tile.value == gameBoard.get(tile.row).get(column).value && column != tile.column) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public boolean isValidSector(SudokuTile tile) {
 		
 		int value = tile.value;
@@ -52,7 +72,7 @@ public class Sudoku implements KeyListener {
 		
 		for(int row = startRow; row <= endRow; row++) {
 			for(int column = startColumn; column <= endColumn; column++) {
-				if(row != tileRow && column != tileColumn && gameBoard.get(row).get(column).value == value) {
+				if(gameBoard.get(row).get(column).value == value && row != tileRow && column != tileColumn) {
 					return false;
 				}
 			}
@@ -125,6 +145,11 @@ public class Sudoku implements KeyListener {
 	
 	public static void draw(){
 		
+		for(int i = 0; i < 50; i++) {
+			System.out.println();
+		}
+		
+		
 		String line = "";
 		
 		System.out.println();
@@ -133,7 +158,7 @@ public class Sudoku implements KeyListener {
 		for(int row = 0; row < 9; row++) {
 			line = "";
 			for(int column = 0; column < 9; column++) {
-				String spot = gameBoard.get(row).get(column).toString();
+				String spot = Integer.toString(gameBoard.get(row).get(column).value);
 				if(currentTile.row == row && currentTile.column == column) {
 					spot = "[" + spot + "]";
 				} else {
@@ -193,10 +218,7 @@ public class Sudoku implements KeyListener {
 		boolean playing = true;
 		while(playing) {
 		
-			for(int i = 0; i < 50; i++) {
-				System.out.println();
-			}
-			
+
 			draw();
 			
 			

@@ -13,11 +13,11 @@ public class Sudoku implements KeyListener {
 
 	public static List<List<SudokuTile>> gameBoard;
 	public static SudokuTile currentTile;
-	
+	public static String message = "";
 
 
 	
-	public boolean isValidRow(SudokuTile tile) {
+	public static boolean isValidRow(SudokuTile tile) {
 		
 		for(int row = 0; row < 9; row++) {
 			if(tile.value == gameBoard.get(row).get(tile.column).value && row != tile.row) {
@@ -27,7 +27,7 @@ public class Sudoku implements KeyListener {
 		return true;
 	}
 
-	public boolean isValidColumn(SudokuTile tile) {
+	public static boolean isValidColumn(SudokuTile tile) {
 		
 		for(int column = 0; column < 9; column++) {
 			if(tile.value == gameBoard.get(tile.row).get(column).value && column != tile.column) {
@@ -37,7 +37,7 @@ public class Sudoku implements KeyListener {
 		return true;
 	}
 	
-	public boolean isValidSector(SudokuTile tile) {
+	public static boolean isValidSector(SudokuTile tile) {
 		
 		int value = tile.value;
 		int tileRow = tile.row;
@@ -130,13 +130,25 @@ public class Sudoku implements KeyListener {
 		return 0;
 	}
 	
-	public static void update(int row, int column, int newValue) {
+	
+	public static int update(int row, int column, int newValue) {
 		// store old value
 		// insert new value
 		// check row, column, sector for validity
 		// if not insert old value
 		// draw with message
+		SudokuTile tile = gameBoard.get(row).get(column);
+		int oldValue = tile.value;
+		tile.value = newValue;
 		
+		if(isValidColumn(tile) && isValidRow(tile) && isValidSector(tile)) {
+			return newValue;
+		} else {
+			tile.value = oldValue;
+			message = "You must enter a valid entry for this tile";
+			return oldValue;
+		}
+		 
 	}
 	
 	public static boolean isSolved(){
@@ -150,7 +162,7 @@ public class Sudoku implements KeyListener {
 		}
 		
 		
-		String line = "";
+		String line;
 		
 		System.out.println();
 		System.out.println();
@@ -189,27 +201,6 @@ public class Sudoku implements KeyListener {
 	
 	public static void main(String[] args) {
 		
-
-//		//board is list of lists for rows/columns cells with location & sector
-//		List<List<Integer>> sectors = new LinkedList<List<Integer>>();
-//		
-//		sectors.add(Arrays.toList(1,1,1,2,2,2,3,3,3));
-//		sectors.add(Arrays.toList(1,1,1,2,2,2,3,3,3));
-//		sectors.add(Arrays.toList(1,1,1,2,2,2,3,3,3));
-//		sectors.add(Arrays.toList(4,4,4,5,5,5,6,6,6));
-//		sectors.add(Arrays.toList(4,4,4,5,5,5,6,6,6));
-//		sectors.add(Arrays.toList(4,4,4,5,5,5,6,6,6));
-//		sectors.add(Arrays.toList(7,7,7,8,8,8,9,9,9));
-//		sectors.add(Arrays.toList(7,7,7,8,8,8,9,9,9));
-//		sectors.add(Arrays.toList(7,7,7,8,8,8,9,9,9));
-//		
-//		List<List<Integer>> board = new 
-//		
-//		for(int row = 0; row < 9; row++) {
-//			for(int column = 0; column < 9; column++) {
-//				board.add(Arrays.asList(row, column, sectors.get(row,column)));
-//			}
-//		}
 		
 		makeBoard();
 		
@@ -225,6 +216,7 @@ public class Sudoku implements KeyListener {
 			String newValue = s.nextLine();
 			if(newValue.length() == 1 && Character.isDigit(newValue.charAt(0))) {
 				System.out.println("update tile @ row,column: " + currentTile.row + "," + currentTile.column + " to new value: " + newValue);
+				System.out.println("Value after update: " + update(currentTile.row, currentTile.column, Character.getNumericValue(newValue.charAt(0))));
 				try {
 				    TimeUnit.SECONDS.sleep(1);
 				} catch (InterruptedException ex) {

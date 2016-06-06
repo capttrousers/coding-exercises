@@ -20,7 +20,7 @@ public class Sudoku implements KeyListener {
 	public static boolean isValidRow(SudokuTile tile) {
 		
 		for(int row = 0; row < 9; row++) {
-			if(tile.value == gameBoard.get(row).get(tile.column).value && row != tile.row) {
+			if(tile.getValue() == gameBoard.get(row).get(tile.getColumn()).getValue() && row != tile.getRow()) {
 				return false;
 			}
 		}
@@ -30,7 +30,7 @@ public class Sudoku implements KeyListener {
 	public static boolean isValidColumn(SudokuTile tile) {
 		
 		for(int column = 0; column < 9; column++) {
-			if(tile.value == gameBoard.get(tile.row).get(column).value && column != tile.column) {
+			if(tile.getValue() == gameBoard.get(tile.getRow()).get(column).getValue() && column != tile.getColumn()) {
 				return false;
 			}
 		}
@@ -39,9 +39,9 @@ public class Sudoku implements KeyListener {
 	
 	public static boolean isValidSector(SudokuTile tile) {
 		
-		int value = tile.value;
-		int tileRow = tile.row;
-		int tileColumn = tile.column;
+		int value = tile.getValue();
+		int tileRow = tile.getRow();
+		int tileColumn = tile.getColumn();
 		
 		// check the sector that has tile. 
 		int startRow;
@@ -72,7 +72,7 @@ public class Sudoku implements KeyListener {
 		
 		for(int row = startRow; row <= endRow; row++) {
 			for(int column = startColumn; column <= endColumn; column++) {
-				if(gameBoard.get(row).get(column).value == value && row != tileRow && column != tileColumn) {
+				if(gameBoard.get(row).get(column).getValue() == value && row != tileRow && column != tileColumn) {
 					return false;
 				}
 			}
@@ -97,40 +97,6 @@ public class Sudoku implements KeyListener {
 		
 	}
 	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		if(key == KeyEvent.VK_DOWN) {
-			if(currentTile.row < 8) {
-				currentTile.row++;
-			}
-		} else if(key == KeyEvent.VK_UP) {
-			if(currentTile.row > 0) {
-				currentTile.row--;
-			}
-		} else if(key == KeyEvent.VK_RIGHT) {
-			if(currentTile.column < 8) {
-				currentTile.column++;
-			}
-		} else if(key == KeyEvent.VK_DOWN) {
-			if(currentTile.column > 0) {
-				currentTile.column--;
-			}
-		}
-		draw();
-		
-	}
-
-
-	
-	public static int getValue(){
-		
-		
-		// if no value exists yet, return 0
-		return 0;
-	}
-	
-	
 	public static int update(int row, int column, int newValue) {
 		// store old value
 		// insert new value
@@ -138,21 +104,30 @@ public class Sudoku implements KeyListener {
 		// if not insert old value
 		// draw with message
 		SudokuTile tile = gameBoard.get(row).get(column);
-		int oldValue = tile.value;
-		tile.value = newValue;
+		int oldValue = tile.getValue();
+		tile.setValue(newValue);
 		
 		if(isValidColumn(tile) && isValidRow(tile) && isValidSector(tile)) {
+			message = "Game board successfully updated to new value " + newValue;
 			return newValue;
 		} else {
-			tile.value = oldValue;
+			tile.setValue(oldValue);
 			message = "You must enter a valid entry for this tile";
 			return oldValue;
-		}
-		 
+		} 
 	}
 	
+	// because the update method will only change the value if it's a valid entry
+	// we can assume that at any point during the game loop before or after a call to update()
+	// the game board will be valid. This means that we only need to check for a full board
+	// ie: if all the values in the board are between 1 and 9.
 	public static boolean isSolved(){
-		return false;
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+				if(gameBoard.get(i).get(j).getValue() == 0) return false;
+			}			
+		}		
+		return true;
 	}
 	
 	public static void draw(){
@@ -170,8 +145,8 @@ public class Sudoku implements KeyListener {
 		for(int row = 0; row < 9; row++) {
 			line = "";
 			for(int column = 0; column < 9; column++) {
-				String spot = Integer.toString(gameBoard.get(row).get(column).value);
-				if(currentTile.row == row && currentTile.column == column) {
+				String spot = Integer.toString(gameBoard.get(row).get(column).getValue());
+				if(currentTile.getRow() == row && currentTile.getColumn() == column) {
 					spot = "[" + spot + "]";
 				} else {
 					spot = " " + spot + " ";
@@ -200,8 +175,7 @@ public class Sudoku implements KeyListener {
 	
 	
 	public static void main(String[] args) {
-		
-		
+			
 		makeBoard();
 		
 		Scanner s = new Scanner(System.in);
@@ -209,16 +183,15 @@ public class Sudoku implements KeyListener {
 		boolean playing = true;
 		while(playing) {
 		
-
 			draw();
-			
-			
+				
 			String newValue = s.nextLine();
 			if(newValue.length() == 1 && Character.isDigit(newValue.charAt(0))) {
-				System.out.println("update tile @ row,column: " + currentTile.row + "," + currentTile.column + " to new value: " + newValue);
-				System.out.println("Value after update: " + update(currentTile.row, currentTile.column, Character.getNumericValue(newValue.charAt(0))));
+				System.out.println("update tile @ row,column: " + currentTile.getRow() + "," + currentTile.getColumn() + " to new value: " + newValue);
+				System.out.println("Value after update: " + update(currentTile.getRow(), currentTile.getColumn(), Character.getNumericValue(newValue.charAt(0))));
+				System.out.println(message);
 				try {
-				    TimeUnit.SECONDS.sleep(1);
+				    TimeUnit.SECONDS.sleep(3);
 				} catch (InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
@@ -226,23 +199,40 @@ public class Sudoku implements KeyListener {
 				s.nextLine();
 			}
 			
-			
-			
 			if(isSolved()) {
 				playing = false;
 			}
 		}
 
 		s.close();
-		
-
 	}
 
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
+			if(currentTile.getRow() < 8) {
+				currentTile.setRow(currentTile.getRow() + 1);
+			}
+		} else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+			if(currentTile.getRow() > 0) {
+				currentTile.setRow(currentTile.getRow() - 1);
+			}
+		} else if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
+			if(currentTile.getColumn() < 8) {
+				currentTile.setColumn(currentTile.getColumn() + 1);
+			}
+		} else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
+			if(currentTile.getColumn() > 0) {
+				currentTile.setColumn(currentTile.getColumn() - 1);
+			}
+		}
+		draw();
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 

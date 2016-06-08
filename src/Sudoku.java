@@ -10,12 +10,26 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Sudoku implements KeyListener {
-
+	// The KeyListener is to detect user input for a graphical game board, 
+	// but java doesn't lend itself to good console style apps from both the IDE and command line.
+	// Will probably remove the graphical nature of the app and just focus on the data structures
+	
 	public static List<List<SudokuTile>> gameBoard;
 	public static SudokuTile currentTile;
 	public static String message = "";
 
-
+	/*
+	 * For now, isValid methods take a SudokuTile as a parameter
+	 * and then check the tile's row / column / or sector for validity
+	 * base on the tile's value.
+	 * 
+	 * another option would be to modify each isValid method to take
+	 * the index to check, so the row / column / sector index
+	 * and then check each area for duplicates:
+	 * HashSet<Integer> set; if set.contains(tileAtIndex(index).value) return false //not valid
+	 * 
+	 */
+	
 	
 	public static boolean isValidRow(SudokuTile tile) {
 		
@@ -77,8 +91,6 @@ public class Sudoku implements KeyListener {
 				}
 			}
 		}
-	
-		
 		return true;
 	}
 	
@@ -93,8 +105,6 @@ public class Sudoku implements KeyListener {
 			gameBoard.add(list);
 		}
 		currentTile = new SudokuTile(0, 0, 0);
-		
-		
 	}
 	
 	public static int update(int row, int column, int newValue) {

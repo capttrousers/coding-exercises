@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-
 public class StringIntersection {
 
 	/**
@@ -90,38 +89,4 @@ public class StringIntersection {
 		Arrays.sort(charArray);
 		return (new String(charArray));		
 	}
-	
-	
-	
-    public static void main(String[] args) { 
-    	List<List<String>> testCases = new LinkedList<List<String>>();
-    	testCases.add(new ArrayList<String>(Arrays.asList("abc","abe","ab")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("def","ddd","d")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("abc","xyz","")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("xyz","zyx","xyz")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("aaaaa","aaabc","aaa")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("xyzaaaazzzzzzzz","zzzzzzzzzzyyyyyyasdasd","yzaazzzzzzzz")));
-    	testCases.add(new ArrayList<String>(Arrays.asList(null,"asoidj","")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("asdasd",null,"")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","aaaaaaaaa","aaaaaaaaa")));
-    	testCases.add(new ArrayList<String>(Arrays.asList("aaaaaaaaa","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","aaaaaaaaa")));
-    	// for adding new test cases
-    	// testCases.add(new ArrayList<String>(Arrays.asList(,,"")));
-    	
-    	for (List<String> testCase : testCases) {
-    		String str1     = testCase.get(0);
-    		String str2     = testCase.get(1);
-    		// sort both strings alphabetically
-    		String expected = sortString(testCase.get(2)); 
-    		String actual   = sortString(intersection(str1, str2));
-    		if (expected.equals(actual)) {
-    			System.out.println("SUCCESS: test case (" + str1 + "," + str2 + ")");
-    			System.out.println(" => expected: " + expected);
-    		} else {
-    			System.out.println("FAILED:  test case (" + str1 + "," + str2 + ")");
-    			System.out.println(" => expected: " + expected);
-    			System.out.println(" => actual:   " + actual);
-    		}
-    	}
-    }
 }

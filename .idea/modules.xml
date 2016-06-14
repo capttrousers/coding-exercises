@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coding-exercises.iml" filepath="$PROJECT_DIR$/.idea/modules/coding-exercises.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coding-exercises_main.iml" filepath="$PROJECT_DIR$/.idea/modules/coding-exercises_main.iml" group="coding-exercises" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coding-exercises_test.iml" filepath="$PROJECT_DIR$/.idea/modules/coding-exercises_test.iml" group="coding-exercises" />
+      <module fileurl="file:///mnt/stuff/opt/dev/code/workspace/coding-exercises/coding-exercises.iml" filepath="/mnt/stuff/opt/dev/code/workspace/coding-exercises/coding-exercises.iml" />
     </modules>
   </component>
 </project>

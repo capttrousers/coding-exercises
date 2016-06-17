@@ -5,6 +5,10 @@
     <exclude-output />
     <content url="file:///mnt/stuff/opt/dev/code/workspace/coding-exercises/src/main">
       <sourceFolder url="file:///mnt/stuff/opt/dev/code/workspace/coding-exercises/src/main/java" isTestSource="false" />
+<<<<<<< 44f6583991c3d04231ce48e3991010d329d66522
+=======
+      <sourceFolder url="file:///mnt/stuff/opt/dev/code/workspace/coding-exercises/src/main/resources" type="java-resource" />
+>>>>>>> import master to intellij before making sort class
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

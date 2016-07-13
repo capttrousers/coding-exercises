@@ -19,11 +19,11 @@ public class Sorting {
     public static List<Integer> bubbleSort(List<Integer> array) throws IllegalArgumentException {
 
         if(array == null) {
-            throw new IllegalArgumentException("invalid input heapArray to bubble sort: input heapArray is null");
+            throw new IllegalArgumentException("invalid input array to bubble sort: input array is null");
         }
 
         if(array.isEmpty()) {
-            throw new IllegalArgumentException("invalid input heapArray to bubble sort: empty heapArray");
+            throw new IllegalArgumentException("invalid input array to bubble sort: empty array");
         }
 
         boolean unsorted = true;
@@ -48,13 +48,13 @@ public class Sorting {
          merge the two subarrays by grabbing the next from the two arrays that fits sort condition
          for sorting ints ascending, grab lower of two ints
      */
-    public static List<Integer> mergeSort(List<Integer> array) {
+    public static List<Integer> mergeSort(List<Integer> array)  throws IllegalArgumentException {
         if(array == null) {
-            throw new IllegalArgumentException("invalid input heapArray to merge sort: input heapArray is null");
+            throw new IllegalArgumentException("invalid input array to merge sort: input array is null");
         }
 
         if(array.isEmpty()) {
-            throw new IllegalArgumentException("invalid input heapArray to merge sort: empty heapArray");
+            throw new IllegalArgumentException("invalid input array to merge sort: empty array");
         }
 
         return mergeSort(array, 0, array.size() - 1);
@@ -115,95 +115,29 @@ public class Sorting {
      * method swap
      */
 
-    public static List<Integer> heapSort(List<Integer> array) {
-        // to allow this constructor call, i had to make the class static
-        MaxHeap heap = new MaxHeap(array);
-        return heap.sort();
-    }
+    public static List<Integer> heapSort(List<Integer> array)  throws IllegalArgumentException {
 
-
-
-    public static class MaxHeap {
-        PriorityQueue<Integer> heapArray;
-
-
-
-
-        public MaxHeap(List<Integer> array) {
-            heapArray = new PriorityQueue<Integer>(10);
-            while(! array.isEmpty()) {
-                heapArray.add(array.remove(array.size() - 1));
-            }
+        if(array == null) {
+            throw new IllegalArgumentException("invalid input array to heap sort: input array is null");
         }
 
-//        private void siftUp(int index) {
-//            while(index > 0) {
-//                int comparison = heapArray.compare()
-//                // for min heap, this will check for less than parent
-//                if(heapArray.get(index) > heapArray.get(parent(index))) {
-//                    swap(index,parent(index));
-//                    index = parent(index);
-//                } else {
-//                    index = 0;
-//                }
-//            }
-//        }
-//
-//        private void siftDown(int index) {
-//            while(index < heapArray.size() - 1) {
-//                // max is index of max child
-//                int max = heapArray.indexOf(Math.max(heapArray.get(leftChild(index)), heapArray.get(rightChild(index))));
-//                if(heapArray.get(index) < heapArray.get(max)) {
-//                    swap(index, max);
-//                    index = max;
-//                } else {
-//                    index = heapArray.size();
-//                }
-//            }
-//        }
-//        // returns index of the parent node of node at index
-//        private int parent(int index) {
-//            return Math.round((index - 1) / 2);
-//        }
-//
-//        private int leftChild(int index) {
-//            return (2 * index) + 1;
-//        }
-//
-//        private int rightChild(int index) {
-//            return  leftChild(index) + 1;
-//        }
-//
-//        // swaps objects at indices one and two in heapArray
-//        private void swap(int one, int two) {
-//            Integer temp = heapArray.get(one);
-//            heapArray.set(one, heapArray.get(two));
-//            heapArray.set(two, temp);
-//        }
-//
-//        // exception for empty array
-//        public Integer remove(int index) {
-//            Integer node = heapArray.get(index);
-//            swap(index, heapArray.size() - 1);
-//            heapArray.remove(heapArray.size() - 1);
-//            siftDown(index);
-//            return node;
-//        }
-//
-//        public void add(int value) {
-//            heapArray.add(Integer.valueOf(value));
-//            siftUp(heapArray.size() - 1);
-//        }
-
-        public List<Integer> sort() {
-
-            LinkedList<Integer> list = new LinkedList<Integer>();
-            while(! heapArray.isEmpty()) {
-                list.addFirst(heapArray.poll());
-            }
-            return list;
+        if(array.isEmpty()) {
+            throw new IllegalArgumentException("invalid input array to heap sort: empty array");
         }
 
+        LinkedList<Integer> list = new LinkedList<Integer>(array);
+        // I guess under the hood a PriorityQueue is a min heap
+        // and to do a max heap, the PQ can be made with a comparator?
+        // but this implementation doesnt involve implementing the heap itself
+        // just knowing the PQ behaves like a heap with poll and add
+        PriorityQueue<Integer> heapArray = new PriorityQueue<Integer>(10);
+        while(! list.isEmpty()) {
+            heapArray.add(list.poll());
+        }
+        while(! heapArray.isEmpty()) {
+            list.add(heapArray.poll());
+        }
+        return list;
     }
 }
 

@@ -25,7 +25,8 @@ public class SortingTest {
     
     
     private List<Integer> sort(List<Integer> list) {
-//        return  Sorting.mergeSort(list);
+//        return Sorting.bubbleSort(list);
+//        return Sorting.mergeSort(list);
         return  Sorting.heapSort(list);
     }
     
@@ -59,7 +60,7 @@ public class SortingTest {
         thrown.expect(IllegalArgumentException.class);
         List<Integer> expected = new ArrayList<Integer>();
         Assert.assertEquals(expected, sort(new ArrayList<Integer>()));
-        thrown.expectMessage("invalid input heapArray to bubble sort");
+        thrown.expectMessage("invalid input array to heap sort");
     }
 
 

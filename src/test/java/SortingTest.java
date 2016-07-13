@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class SortingTest {
 
-    // to create an array of 10 random ints between 0 and 100 for use in tests
+    // to create an heapArray of 10 random ints between 0 and 100 for use in tests
     private List<Integer>  randomArray() {
         List<Integer> array = new ArrayList<Integer>();
 
@@ -25,7 +25,8 @@ public class SortingTest {
     
     
     private List<Integer> sort(List<Integer> list) {
-        return  Sorting.mergeSort(list);
+//        return  Sorting.mergeSort(list);
+        return  Sorting.heapSort(list);
     }
     
 
@@ -58,7 +59,7 @@ public class SortingTest {
         thrown.expect(IllegalArgumentException.class);
         List<Integer> expected = new ArrayList<Integer>();
         Assert.assertEquals(expected, sort(new ArrayList<Integer>()));
-        thrown.expectMessage("invalid input array to bubble sort");
+        thrown.expectMessage("invalid input heapArray to bubble sort");
     }
 
 

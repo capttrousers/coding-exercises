@@ -63,7 +63,7 @@ public class Sorting {
     public static List<Integer> mergeSort(List<Integer> array, int start, int end) throws IllegalArgumentException {
 
         if(start < end) {
-            int middle = Math.round((start + end) / 2);
+            int middle = (int)Math.floor((start + end) / 2d);
             mergeSort(array, start, middle);
             mergeSort(array, middle + 1, end);
             merge(array,start,middle,end);
@@ -82,6 +82,7 @@ public class Sorting {
         LinkedList<Integer> rightArray = new LinkedList<Integer>(array.subList(middle, end));
 
         int index = start;
+        // two possible problems areas here: arrays are emtpy before or after end
         while(! (leftArray.isEmpty() && rightArray.isEmpty())){
 
             int value;
@@ -139,6 +140,61 @@ public class Sorting {
         }
         return list;
     }
+
+
+
+    // implement quick sort
+    /*
+     * quicksort inputs an array
+     * exceptions
+     * base case = array.size() < 2 : return array
+     * get pivot
+     * partition on pivot into two arrays
+     * if(! lessArray.isEmpty()) array.addAll(quicksort(lessArray));
+     * array.add(pivot)
+     * if(! moreArray.isEmpty()) array.addAll(quicksort(moreArray));
+     *
+     * return array
+     *
+     *
+     */
+
+    public static List<Integer> quickSort(List<Integer> array) {
+        if(array == null) {
+            throw new IllegalArgumentException("invalid input array to quick sort: input array is null");
+        }
+
+        if(array.isEmpty()) {
+            throw new IllegalArgumentException("invalid input array to quick sort: empty array");
+        }
+
+        ArrayList<Integer> list = new ArrayList<Integer>(array);
+        // base case is array.size < 2 but we already checked for empty array and
+        // we will check for empty arrays less or more than pivot and always add pivot
+        int pivot = list.remove((int)Math.floor(Math.random() * list.size()));
+        List<Integer> lessArray = new ArrayList<Integer>();
+        List<Integer> moreArray = new ArrayList<Integer>();
+        while(! list.isEmpty()) {
+            int element = list.remove(0);
+            if (element < pivot) {
+                lessArray.add(element);
+            } else {
+                moreArray.add(element);
+            }
+        }
+
+        if(! lessArray.isEmpty()) {
+            list.addAll(quickSort(lessArray));
+        }
+        list.add(pivot);
+        if(! moreArray.isEmpty()) {
+            list.addAll(quickSort(moreArray));
+        }
+        return list;
+    }
+
+
+
 }
 
 

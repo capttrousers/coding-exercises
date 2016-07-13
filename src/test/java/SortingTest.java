@@ -27,8 +27,10 @@ public class SortingTest {
     private List<Integer> sort(List<Integer> list) {
 //        return Sorting.bubbleSort(list);
 //        return Sorting.mergeSort(list);
-        return  Sorting.heapSort(list);
+//        return  Sorting.heapSort(list);
+        return  Sorting.quickSort(list);
     }
+
     
 
     @Rule

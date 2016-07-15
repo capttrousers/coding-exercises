@@ -28,7 +28,9 @@ public class SortingTest {
 //        return Sorting.bubbleSort(list);
 //        return Sorting.mergeSort(list);
 //        return  Sorting.heapSort(list);
-        return  Sorting.quickSort(list);
+//        return  Sorting.quickSort(list);
+//        return  Sorting.selectionSort(list);
+        return Sorting.insertionSort(list);
     }
 
     

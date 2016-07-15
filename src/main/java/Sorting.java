@@ -194,7 +194,80 @@ public class Sorting {
     }
 
 
+    // implement selection sort
+    /*
+     * input ArrayList
+     * exceptions
+     * set currentIndex to 0
+     * while currentIndex array.size() - 1
+     * go thru array, find min index at min value
+     * if currentIndex != maxIndex
+     *   swap minIndex with currentIndex
+     * currentindex--;
+     *
+     * return array
+     */
 
+    public static List<Integer> selectionSort(List<Integer> array) {
+        if(array == null) {
+            throw new IllegalArgumentException("invalid input array to selection sort: input array is null");
+        }
+
+        if(array.isEmpty()) {
+            throw new IllegalArgumentException("invalid input array to selection sort: empty array");
+        }
+
+        ArrayList<Integer> arrayList = new ArrayList<Integer>(array);
+        int currentIndex = 0;
+        int size = arrayList.size();
+        while(currentIndex < size) {
+            int minIndex = currentIndex;
+            int minValue = Integer.MAX_VALUE;
+            for(int i = currentIndex; i < size; i++) {
+                if(arrayList.get(i) < minValue ) {
+                    minIndex = i;
+                    minValue = arrayList.get(minIndex);
+                }
+            }
+
+            if(currentIndex != minIndex ) {
+                int temp = arrayList.get(currentIndex);
+                arrayList.set(currentIndex, arrayList.get(minIndex));
+                arrayList.set(minIndex, temp);
+            }
+            currentIndex++;
+        }
+        return arrayList;
+    }
+
+    // implement insertion sort
+    /*
+     * insertion sort has a cursor and assumes that the array to the left of the cursor is already sorted
+     * cursor moves through array and grabs next element and then goes left and inserts the element into the array
+     * moving all the rest of the elements forward one
+     */
+    public static List<Integer> insertionSort(List<Integer> array) {
+        if(array == null) {
+            throw new IllegalArgumentException("invalid input array to insertion sort: input array is null");
+        }
+
+        if(array.isEmpty()) {
+            throw new IllegalArgumentException("invalid input array to insertion sort: empty array");
+        }
+        ArrayList<Integer> arrayList = new ArrayList<Integer>(array);
+
+        for(int i = 1; i < arrayList.size(); i++) {
+            int c = i;
+            int currentValue = arrayList.get(i);
+            while(currentValue < arrayList.get(c - 1)) {
+                arrayList.set(c, arrayList.get(c - 1));
+                arrayList.set(c - 1, currentValue);
+                c--;
+                if(c < 1) break;
+            }
+        }
+        return arrayList;
+    }
 }
 
 

@@ -7,13 +7,12 @@ import java.util.*;
  */
 public class Sorting {
 
-    // implement bubble sort
     /*
-        input heapArray of sortable items?
-         ints for now
-         while unsorted
-          loop thru entire heapArray and if an element is less than the previous element then swap them
-          if looped thru the entire heapArray and every element is >= previous, sorted
+     * Bubble sort iterates thru array and compares value to previous then swaps them when previous is greater
+     * On average, running time: (O) = n^2
+     * @param array Array to be sorted
+     * @return sorted array
+     * @throws illegal argument exception on null array
      */
 
     public static List<Integer> bubbleSort(List<Integer> array) throws IllegalArgumentException {
@@ -23,7 +22,7 @@ public class Sorting {
         }
 
         if(array.isEmpty()) {
-            throw new IllegalArgumentException("invalid input array to bubble sort: empty array");
+            return array;
         }
 
         boolean unsorted = true;
@@ -31,7 +30,7 @@ public class Sorting {
             unsorted = false;
             for(int i = 1; i < array.size(); i++) {
                 if(array.get(i) < array.get(i - 1)) {
-                    Collections.swap(array, i, i -1);
+                    Collections.swap(array, i, i - 1);
                     unsorted = true;
                 }
             }
@@ -40,48 +39,41 @@ public class Sorting {
         return array;
     }
 
-    // implement merge sort
     /*
-        input heapArray of sortable items?
-         ints for now
-         cut heapArray in half recursively until each heapArray is size 1
-         merge the two subarrays by grabbing the next from the two arrays that fits sort condition
-         for sorting ints ascending, grab lower of two ints
+     * Merge sort checks array and if bigger than one element, recursively calls merge sort on list broken in two
+     * On average, running time: (O) = n lg n
+     * @param list List to be sorted
+     * @return Sorted array
+     * @throws Illegal argument exception on null array
      */
-    public static List<Integer> mergeSort(List<Integer> array)  throws IllegalArgumentException {
-        if(array == null) {
+    public static List<Integer> mergeSort(List<Integer> list)  throws IllegalArgumentException {
+        if(list == null) {
             throw new IllegalArgumentException("invalid input array to merge sort: input array is null");
         }
 
-        if(array.isEmpty()) {
-            throw new IllegalArgumentException("invalid input array to merge sort: empty array");
+        if(list.isEmpty() || list.size() == 1) {
+            return list;
         }
-
-        return mergeSort(array, 0, array.size() - 1);
+        int middle = (int)Math.floor(list.size() / 2);
+        // list.subList(inclusive,exclusive) throws error if end > list.size
+        List<Integer> leftArray = mergeSort(list.subList(0,middle));
+        List<Integer> rightArray = mergeSort(list.subList(middle,list.size()));
+        List<Integer> sortedList = merge(leftArray, rightArray);
+        return  sortedList;
     }
 
-    public static List<Integer> mergeSort(List<Integer> array, int start, int end) throws IllegalArgumentException {
+    /*
+     * Merge is called by merge sort to merge together two sorted sub arrays by grabbing the next value
+     * from the two arrays that fits sort condition. For sorting ints ascending, grab lower of two ints. @see #mergeSort
+     * @param leftList First list to be merged with second
+     * @param rightList Second list to be merged together
+     */
+    private static ArrayList<Integer> merge(List<Integer> leftList, List<Integer> rightList) {
 
-        if(start < end) {
-            int middle = (int)Math.floor((start + end) / 2d);
-            mergeSort(array, start, middle);
-            mergeSort(array, middle + 1, end);
-            merge(array,start,middle,end);
-        }
+        LinkedList<Integer> leftArray = new LinkedList<Integer>(leftList);
+        LinkedList<Integer> rightArray = new LinkedList<Integer>(rightList);
+        ArrayList<Integer> array = new ArrayList<Integer>();
 
-        return  array;
-    }
-
-    private static void merge(List<Integer> array, int start, int middle, int end) {
-
-        // heapArray.subList(inclusive,exclusive) so middle will be start of right heapArray
-        middle++;
-        // heapArray.subList(start,end) will throw exception if(start < 0 || end > size)
-        end++;
-        LinkedList<Integer> leftArray = new LinkedList<Integer>(array.subList(start, middle));
-        LinkedList<Integer> rightArray = new LinkedList<Integer>(array.subList(middle, end));
-
-        int index = start;
         // two possible problems areas here: arrays are emtpy before or after end
         while(! (leftArray.isEmpty() && rightArray.isEmpty())){
 
@@ -97,25 +89,20 @@ public class Sorting {
                     value = rightArray.remove();
                 }
             }
-            array.set(index, value);
-            index++;
+            array.add(value);
         }
+        return array;
     }
 
 
-    // implement heap sort
     /*
-     * heap is weak binary tree stored as an array list
-     * max heap has max at root, min heap has min at root
-     * parent node of node at index k is Math.round((k-1)/2)
-     * left child node is 2k + 1
-     * right child node is left child node + 1
-     * delete swaps top and bottom nodes, deletes bottom node, sifts down top node
-     * sift down will compare both children for max (or min in min heap) and then if max > node, swap
-     * sift up will compare to parent, if greater, swap
-     * method swap
+     * Heap sort utilizes the Heap implementation of the PriorityQueue util java class.
+     * Adds all elements from array to PQ and pops them off the PQ until empty to get sorted array.
+     * On average, running time: (O) = n lg n
+     * @param array Array to be sorted
+     * @return Sorted array
+     * @throws Illegal argument exception on null array
      */
-
     public static List<Integer> heapSort(List<Integer> array)  throws IllegalArgumentException {
 
         if(array == null) {
@@ -123,7 +110,7 @@ public class Sorting {
         }
 
         if(array.isEmpty()) {
-            throw new IllegalArgumentException("invalid input array to heap sort: empty array");
+            return array;
         }
 
         LinkedList<Integer> list = new LinkedList<Integer>(array);
@@ -131,10 +118,12 @@ public class Sorting {
         // and to do a max heap, the PQ can be made with a comparator?
         // but this implementation doesnt involve implementing the heap itself
         // just knowing the PQ behaves like a heap with poll and add
-        PriorityQueue<Integer> heapArray = new PriorityQueue<Integer>(10);
-        while(! list.isEmpty()) {
-            heapArray.add(list.poll());
+        PriorityQueue<Integer> heapArray = new PriorityQueue<Integer>();
+        Iterator<Integer> i = list.iterator();
+        while(i.hasNext()) {
+            heapArray.add(i.next());
         }
+        list.clear();
         while(! heapArray.isEmpty()) {
             list.add(heapArray.poll());
         }
@@ -143,20 +132,13 @@ public class Sorting {
 
 
 
-    // implement quick sort
     /*
-     * quicksort inputs an array
-     * exceptions
-     * base case = array.size() < 2 : return array
-     * get pivot
-     * partition on pivot into two arrays
-     * if(! lessArray.isEmpty()) array.addAll(quicksort(lessArray));
-     * array.add(pivot)
-     * if(! moreArray.isEmpty()) array.addAll(quicksort(moreArray));
-     *
-     * return array
-     *
-     *
+     * Quick sort finds a middle pivot element, partitions all elements greater or less than the pivot
+     * and then recursively calls quick sort on both partitions until each partition is size one.
+     * On average, running time: (O) = n lg n
+     * @param array Array to be sorted
+     * @return Sorted array
+     * @throws Illegal argument exception on null array
      */
 
     public static List<Integer> quickSort(List<Integer> array) {
@@ -165,7 +147,7 @@ public class Sorting {
         }
 
         if(array.isEmpty()) {
-            throw new IllegalArgumentException("invalid input array to quick sort: empty array");
+            return array;
         }
 
         ArrayList<Integer> list = new ArrayList<Integer>(array);
@@ -194,7 +176,77 @@ public class Sorting {
     }
 
 
+    /*
+     * Selection sort iterates over array, then finds and moves the min or max value, to front or back respectively.
+     * Repeats until the section of the array to be sorted is just the first or last element.
+     * On average, running time: (O) = n ^ 2
+     * @param array Array to be sorted
+     * @return Sorted array
+     * @throws Illegal argument exception on null array
+     */
 
+    public static List<Integer> selectionSort(List<Integer> array) {
+        if(array == null) {
+            throw new IllegalArgumentException("invalid input array to selection sort: input array is null");
+        }
+
+        if(array.isEmpty()) {
+            return array;
+        }
+
+        ArrayList<Integer> arrayList = new ArrayList<Integer>(array);
+        int currentIndex = 0;
+        int size = arrayList.size();
+        while(currentIndex < size) {
+            int minIndex = currentIndex;
+            int minValue = Integer.MAX_VALUE;
+            for(int i = currentIndex; i < size; i++) {
+                if(arrayList.get(i) < minValue ) {
+                    minIndex = i;
+                    minValue = arrayList.get(minIndex);
+                }
+            }
+
+            if(currentIndex != minIndex ) {
+                int temp = arrayList.get(currentIndex);
+                arrayList.set(currentIndex, arrayList.get(minIndex));
+                arrayList.set(minIndex, temp);
+            }
+            currentIndex++;
+        }
+        return arrayList;
+    }
+
+    /*
+     * Insertion sort has a cursor in the array and assumes the subarray to the left of the cursor is already sorted.
+     * Cursor moves through array and grabs next element and inserts the element into the sorted array, moving all the rest of the elements forward one
+     * On average, running time: (O) = n ^ 2
+     * @param array Array to be sorted
+     * @return Sorted array
+     * @throws Illegal argument exception on null array
+     */
+    public static List<Integer> insertionSort(List<Integer> array) {
+        if(array == null) {
+            throw new IllegalArgumentException("invalid input array to insertion sort: input array is null");
+        }
+
+        if(array.isEmpty()) {
+            return array;
+        }
+        ArrayList<Integer> arrayList = new ArrayList<Integer>(array);
+
+        for(int i = 1; i < arrayList.size(); i++) {
+            int c = i;
+            int currentValue = arrayList.get(i);
+            while(currentValue < arrayList.get(c - 1)) {
+                arrayList.set(c, arrayList.get(c - 1));
+                arrayList.set(c - 1, currentValue);
+                c--;
+                if(c < 1) break;
+            }
+        }
+        return arrayList;
+    }
 }
 
 

@@ -24,13 +24,13 @@ public class SortingTest {
     }
     
     
-    private List<Integer> sort(List<Integer> list) {
-//        return Sorting.bubbleSort(list);
-//        return Sorting.mergeSort(list);
-//        return  Sorting.heapSort(list);
-//        return  Sorting.quickSort(list);
-//        return  Sorting.selectionSort(list);
-        return Sorting.insertionSort(list);
+    private void check(List<Integer> toSort, List<Integer> expected) {
+        Assert.assertEquals(Sorting.bubbleSort(toSort), expected );
+//        Assert.assertEquals(Sorting.mergeSort(toSort), expected );
+        Assert.assertEquals(Sorting.heapSort(toSort), expected );
+        Assert.assertEquals(Sorting.quickSort(toSort), expected );
+        Assert.assertEquals(Sorting.selectionSort(toSort), expected );
+        Assert.assertEquals(Sorting.insertionSort(toSort), expected );
     }
 
     
@@ -41,30 +41,28 @@ public class SortingTest {
     @Test
     public void test1() {
         List<Integer> expected = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
-        List<Integer> actual = sort(Arrays.asList(10,9,6,1,7,2,3,5,4,8));
-        Assert.assertEquals(expected,actual);
+        List<Integer> toCheck = Arrays.asList(10,9,6,1,7,2,3,5,4,8);
+        check(toCheck, expected);
     }
 
     @Test
     public void test2() {
         List<Integer> expected = Arrays.asList(0, 14, 19, 27, 48, 56, 58, 60, 65, 71);
-        List<Integer> actual = sort(Arrays.asList(58, 19, 60, 14, 0, 27, 48, 56, 71, 65));
-        Assert.assertEquals(expected,actual);
+        List<Integer> toCheck = Arrays.asList(58, 19, 60, 14, 0, 27, 48, 56, 71, 65);
+        check(toCheck, expected);
     }
 
     @Test
     public void test3() {
         List<Integer> expected = Arrays.asList(16, 24, 30, 38, 58, 68, 68, 82, 88, 98);
-        List<Integer> actual = sort(Arrays.asList(82, 30, 24, 16, 38, 58, 88, 68, 68, 98));
-        Assert.assertEquals(expected,actual);
+        List<Integer> toCheck = Arrays.asList(82, 30, 24, 16, 38, 58, 88, 68, 68, 98);
+        check(toCheck, expected);
     }
 
     @Test
     public void emptyArrayTest() {
-        thrown.expect(IllegalArgumentException.class);
         List<Integer> expected = new ArrayList<Integer>();
-        Assert.assertEquals(expected, sort(new ArrayList<Integer>()));
-        thrown.expectMessage("invalid input array to heap sort");
+        check(new ArrayList<Integer>(), expected);
     }
 
 
@@ -72,14 +70,14 @@ public class SortingTest {
     public void nullArray() {
         thrown.expect(IllegalArgumentException.class);
         List<Integer> expected = new ArrayList<Integer>();
-        Assert.assertEquals(expected, sort(null));
+        check(null, expected);
     }
     /*
         @Test
         public void test() {
             List<Integer> expected = randomArray();
-            List<Integer> actual = sort(Arrays.asList(10,9,6,1,7,2,3,5,4,8));
-            Assert.assertEquals(expected,actual);
+            List<Integer> toCheck = Arrays.asList(10,9,6,1,7,2,3,5,4,8);
+            check(expected,actual);
         }
      */
 

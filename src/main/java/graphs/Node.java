@@ -1,8 +1,7 @@
 package graphs;
 
-public interface Node {
-
+public interface Node<T> {
     float getX();
     float getY();
-    Object getValue();
+    T getValue();
 }

@@ -4,4 +4,5 @@ public interface Node {
 
     float getX();
     float getY();
+    Object getValue();
 }

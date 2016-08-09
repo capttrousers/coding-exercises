@@ -46,4 +46,17 @@ public class WeightedEdge implements Edge {
     public boolean contains(Node node) {
         return leftNode.equals(node) || rightNode.equals(node);
     }
+
+    // will return null if node is not in edge, else returns opposite node
+    public Node getOtherNode(Node node) {
+        if(contains(node)) {
+            if(node.equals(getRightNode())) {
+                return getLeftNode();
+            } else {
+                return getRightNode();
+            }
+        } else {
+            return null;
+        }
+    }
 }

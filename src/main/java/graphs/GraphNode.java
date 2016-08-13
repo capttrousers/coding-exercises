@@ -5,6 +5,13 @@ public class GraphNode<T> implements Node<T> {
     private float x;
     private float y;
     private T value;
+    private boolean visited;
+
+    public GraphNode(Node<T> node) {
+        setX(node.getX());
+        setY(node.getY());
+        setValue(node.getValue());
+    }
 
     public GraphNode(float x, float y, T value) {
         this.x = x;
@@ -18,8 +25,15 @@ public class GraphNode<T> implements Node<T> {
         return y;
     }
 
+    public void setValue(T value) {
+        this.value = value;
+    }
     public T getValue() {
         return this.value;
+    }
+
+    public boolean isVisited() {
+        return visited;
     }
 
     public void setX(float x) { this.x = x; }

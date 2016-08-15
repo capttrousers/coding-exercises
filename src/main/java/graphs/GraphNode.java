@@ -33,8 +33,12 @@ public class GraphNode<T> implements Node<T> {
     }
 
     public boolean isVisited() {
-        return visited;
+        return this.visited;
     }
+
+    public void visit()   { this.visited = true;  }
+
+    public void unvisit() { this.visited = false; }
 
     public void setX(float x) { this.x = x; }
 

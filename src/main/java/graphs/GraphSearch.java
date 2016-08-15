@@ -19,7 +19,7 @@ public class GraphSearch {
         // stack is push pop peek : peek to see
         LinkedList<Node> locationStack = new LinkedList<Node>();
         Node startingNode = ((Node)graph.getNodes().toArray()[0]);
-        locationStack.addFirst(startingNode);
+        locationStack.push(startingNode);
         LinkedList<Edge> incidentEdges;
         Node nextNode;
 
@@ -29,27 +29,30 @@ public class GraphSearch {
             // getNextNode can return null
             nextNode = getNextNode(incidentEdges, startingNode);
             if(nextNode == null) {
+                locationStack.pop();
                 if(locationStack.isEmpty()) {
                     searching = false;
                 }
-                locationStack.pop();
-                startingNode = locationStack.peek();
             } else {
-                startingNode = nextNode;
-                locationStack.addFirst(startingNode);
+                locationStack.push(nextNode);
             }
+            startingNode = locationStack.peek();
         }
         return null;
     }
 
     private Node getNextNode(LinkedList<Edge> incidentEdges, Node startingNode) {
-        for(Edge edge : incidentEdges) {
-            Node node = edge.getOtherNode(startingNode);
-            if(! node.isVisited()) {
-                return edge.getOtherNode(startingNode);
+        if(incidentEdges.isEmpty() || incidentEdges == null) {
+            return null;
+        } else {
+            for (Edge edge : incidentEdges) {
+                Node node = edge.getOtherNode(startingNode);
+                if (!node.isVisited()) {
+                    return edge.getOtherNode(startingNode);
+                }
             }
+            return null;
         }
-        return null;
     }
 
     private LinkedList<Edge> getIncidentEdges(Set<Edge> edges, Node node) {
@@ -60,6 +63,7 @@ public class GraphSearch {
             }
         }
         // sort the incidentEdges by weight***
+        // linked list so after we implement Comparable on Edges, we can return Collections.sort(incidentEdges)
         return incidentEdges;
     }
 

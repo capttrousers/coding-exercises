@@ -19,15 +19,16 @@ public class GraphNode<T> implements Node<T> {
         this.value = value;
     }
 
+    public GraphNode(T value) {
+        this.value = value;
+    }
+
     public float getX() { return x; }
 
     public float getY() {
         return y;
     }
 
-    public void setValue(T value) {
-        this.value = value;
-    }
     public T getValue() {
         return this.value;
     }
@@ -44,5 +45,9 @@ public class GraphNode<T> implements Node<T> {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
     }
 }

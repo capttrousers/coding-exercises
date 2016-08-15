@@ -36,6 +36,10 @@ public class UnweightedEdge implements Edge {
         return leftNode.equals(node) || rightNode.equals(node);
     }
 
+    public boolean isWeighted() {
+        return false;
+    }
+
 
     // will return null if node is not in edge, else returns opposite node
     public Node getOtherNode(Node node) {

@@ -1,48 +1,45 @@
 package graphs;
 
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.Stack;
 
 public class GraphSearch {
 
-    public List<Node> depthFirstSearch(Graph g) {
+    public static List<Node> depthFirstSearch(Graph g, Node start, Node finish) {
 
-        if(g == null || g.getNodes() == null || g.getEdges() == null) {
+        if (g == null || g.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
         }
 
+        // why not just use the Graph as it comes to you?
         UndirectedGraph graph = new UndirectedGraph(g);
 
         // DFS uses a stack of nodes visited
         // stack is push pop peek : peek to see
-        LinkedList<Node> locationStack = new LinkedList<Node>();
-        Node startingNode = ((Node)graph.getNodes().toArray()[0]);
-        locationStack.push(startingNode);
-        LinkedList<Edge> incidentEdges;
-        Node nextNode;
+        Stack<Node> location = new Stack<Node>();
+        Node currentNode = start;
+        location.push(currentNode);
 
         boolean searching = true;
         while (searching) {
-            incidentEdges = getIncidentEdges(graph.getEdges(), startingNode);
+            List<Edge> incidentEdges = g.getIncidentEdges(currentNode);
             // getNextNode can return null
-            nextNode = getNextNode(incidentEdges, startingNode);
-            if(nextNode == null) {
-                locationStack.pop();
-                if(locationStack.isEmpty()) {
+            Node nextNode = getNextNode(incidentEdges, currentNode);
+            if (nextNode == null) {
+                location.pop();
+                if (location.isEmpty()) {
                     searching = false;
                 }
             } else {
-                locationStack.push(nextNode);
+                location.push(nextNode);
             }
-            startingNode = locationStack.peek();
+            currentNode = location.peek();
         }
         return null;
     }
 
-    private Node getNextNode(LinkedList<Edge> incidentEdges, Node startingNode) {
-        if(incidentEdges.isEmpty() || incidentEdges == null) {
+    private static Node getNextNode(List<Edge> incidentEdges, Node startingNode) {
+        if (incidentEdges.isEmpty() || incidentEdges == null) {
             return null;
         } else {
             for (Edge edge : incidentEdges) {
@@ -55,20 +52,8 @@ public class GraphSearch {
         }
     }
 
-    private LinkedList<Edge> getIncidentEdges(Set<Edge> edges, Node node) {
-        LinkedList<Edge> incidentEdges = new LinkedList<Edge>();
-        for(Edge edge : edges) {
-            if(edge.contains(node)) {
-                edges.add(edge);
-            }
-        }
-        // sort the incidentEdges by weight***
-        // linked list so after we implement Comparable on Edges, we can return Collections.sort(incidentEdges)
-        return incidentEdges;
-    }
 
-
-    public List<Node> breadthFirstSearch(Graph graph) {
+    public static List<Node> breadthFirstSearch(Graph graph) {
 
 
 

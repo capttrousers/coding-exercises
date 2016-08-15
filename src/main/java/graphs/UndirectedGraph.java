@@ -1,20 +1,17 @@
 package graphs;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 
 public class UndirectedGraph implements Graph {
-    private Set<Edge> edges;
-    private Set<Node> nodes;
+    private List<Edge> edges;
+    private List<Node> nodes;
 
     public UndirectedGraph() {
-        edges = new HashSet<Edge>();
-        nodes = new HashSet<Node>();
+        edges = new ArrayList<Edge>();
+        nodes = new ArrayList<Node>();
     }
 
-    public UndirectedGraph(Set<Edge> edges, Set<Node> nodes) {
+    public UndirectedGraph(List<Edge> edges, List<Node> nodes) {
         this.edges = edges;
         this.nodes = nodes;
     }
@@ -24,11 +21,11 @@ public class UndirectedGraph implements Graph {
         nodes = graph.getNodes();
     }
 
-    public Set<Edge> getEdges() {
+    public List<Edge> getEdges() {
         return edges;
     }
 
-    public Set<Node> getNodes() {
+    public List<Node> getNodes() {
         return nodes;
     }
 
@@ -60,4 +57,29 @@ public class UndirectedGraph implements Graph {
         edges.remove(edge);
     }
 
+    public List<Edge> getIncidentEdges(Node node) {
+        List<Edge> incidentEdges = new LinkedList<Edge>();
+        for(Edge edge : edges) {
+            if(edge.contains(node)) {
+                edges.add(edge);
+            }
+        }
+        // sort the incidentEdges by weight***
+        // linked list so after we implement Comparable on Edges, we can return Collections.sort(incidentEdges)
+        return incidentEdges;
+    }
+
+    public boolean isEmpty() {
+        /**
+         * Sam - implement me.
+         */
+        return true;
+    }
+
+    public boolean isDirected() {
+        /**
+         * Sam - implement me.
+         */
+        return true;
+    }
 }

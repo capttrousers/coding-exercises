@@ -25,7 +25,9 @@ public class WeightedEdge implements Edge {
         this.weight = weight;
     }
 
-
+    public boolean isWeighted() {
+        return true;
+    }
 
     public Node getLeftNode() {
         return leftNode;

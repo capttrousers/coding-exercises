@@ -5,4 +5,6 @@ public interface Node<T> {
     float getY();
     T getValue();
     boolean isVisited();
+    void visit();
+
 }

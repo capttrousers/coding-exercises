@@ -61,7 +61,7 @@ public class UndirectedGraph implements Graph {
         List<Edge> incidentEdges = new LinkedList<Edge>();
         for(Edge edge : edges) {
             if(edge.contains(node)) {
-                edges.add(edge);
+                incidentEdges.add(edge);
             }
         }
         // sort the incidentEdges by weight***
@@ -70,16 +70,11 @@ public class UndirectedGraph implements Graph {
     }
 
     public boolean isEmpty() {
-        /**
-         * Sam - implement me.
-         */
-        return true;
+        return (edges.isEmpty() && nodes.isEmpty());
     }
 
     public boolean isDirected() {
-        /**
-         * Sam - implement me.
-         */
-        return true;
+        // for now this is just going to return false in class UndirectedGraph but could be abstracted to field
+        return false;
     }
 }

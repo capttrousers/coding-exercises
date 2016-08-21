@@ -1,49 +1,58 @@
 package graphs;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 public class GraphSearch {
 
-    public static List<Node> depthFirstSearch(Graph g, Node start, Node finish) {
+    public static List<Node> depthFirstSearch(Graph graph, Node start, Node finish) {
 
-        if (g == null || g.isEmpty()) {
+        if (graph == null || graph.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
         }
-
-        // why not just use the Graph as it comes to you?
-        UndirectedGraph graph = new UndirectedGraph(g);
 
         // DFS uses a stack of nodes visited
         // stack is push pop peek : peek to see
         Stack<Node> location = new Stack<Node>();
-        Node currentNode = start;
-        location.push(currentNode);
+        start.visit();
+        location.push(start);
+
+        // list of nodes in order to be returned
+        LinkedList<Node> nodeList = new LinkedList<Node>(location);
 
         boolean searching = true;
         while (searching) {
-            List<Edge> incidentEdges = g.getIncidentEdges(currentNode);
+            Node currentNode = location.peek();
+            List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
             // getNextNode can return null
             Node nextNode = getNextNode(incidentEdges, currentNode);
-            if (nextNode == null) {
+            if(nextNode == null) {
                 location.pop();
                 if (location.isEmpty()) {
                     searching = false;
                 }
+            } else if (nextNode.equals(finish)) {
+                searching = false;
+                nodeList.add(nextNode);
             } else {
+                // so i declared this function on the Node interface, which im using as the Type throughout
+                // this algo, but in practice the Node will actually be an instance of GraphNode which is where i
+                // have actually impleneted what .visit() does, correct?
+                nextNode.visit();
                 location.push(nextNode);
+                nodeList.add(nextNode);
             }
-            currentNode = location.peek();
         }
-        return null;
+        return nodeList;
     }
 
-    private static Node getNextNode(List<Edge> incidentEdges, Node startingNode) {
+    private static Node<String> getNextNode(List<Edge> incidentEdges, Node<String> startingNode) {
         if (incidentEdges.isEmpty() || incidentEdges == null) {
             return null;
         } else {
             for (Edge edge : incidentEdges) {
-                Node node = edge.getOtherNode(startingNode);
+                Node<String> node = edge.getOtherNode(startingNode);
                 if (!node.isVisited()) {
                     return edge.getOtherNode(startingNode);
                 }

@@ -2,6 +2,7 @@ package graphs;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 public class GraphSearch {
@@ -62,10 +63,45 @@ public class GraphSearch {
     }
 
 
-    public static List<Node> breadthFirstSearch(Graph graph) {
+    public static List<Node> breadthFirstSearch(Graph graph,  Node start, Node finish) {
+        if (graph == null || graph.isEmpty()) {
+            throw new IllegalArgumentException("empty or null graph");
+        }
+        /*
+         * check graph empty / null
+         * first make queue and list to return, visit start node, add to both
+         * then loop: take start node, get all edges, get other nodes, if not visited
+         *    then visit and add to queue and list
+         * when done, get next node from queue and loop again
+         */
 
+        // BFS uses a queue of nodes to visit
+        // queue is add poll to get and remove peek to see
+        PriorityQueue<Node> nodeQueue = new PriorityQueue<Node>();
+        start.visit();
+        nodeQueue.add(start);
 
+        // list of nodes in order to be returned
+        LinkedList<Node> nodeList = new LinkedList<Node>(nodeQueue);
 
-        return null;
+        Node currentNode = nodeQueue.poll();
+        while (currentNode != null) {
+            List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
+            // getNextNode can return null
+            Node nextNode = getNextNode(incidentEdges, currentNode);
+            while (nextNode != null) {
+                nodeList.add(nextNode);
+                if(nextNode.equals(finish)) {
+                    return nodeList;
+                } else {
+                    nextNode.visit();
+                    nodeQueue.add(nextNode);
+                    nextNode = getNextNode(incidentEdges, currentNode);
+                }
+            }
+            currentNode = nodeQueue.poll();
+        }
+
+        return nodeList;
     }
 }

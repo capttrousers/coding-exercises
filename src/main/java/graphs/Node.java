@@ -6,5 +6,4 @@ public interface Node<T> {
     T getValue();
     boolean isVisited();
     void visit();
-
 }

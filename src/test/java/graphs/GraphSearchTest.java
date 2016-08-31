@@ -117,7 +117,7 @@ public class GraphSearchTest {
 
     @Test
     public void breadthFirstSearchGraph01() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph1, nodeA, nodeF);
+        List<Node> path = GraphSearch.breadthFirstSearch(graph1, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("B"));
@@ -143,7 +143,7 @@ public class GraphSearchTest {
 
     @Test
     public void breadthFirstSearchGraph02() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph2, nodeA, nodeH);
+        List<Node> path = GraphSearch.breadthFirstSearch(graph2, nodeA, nodeH);
         Assert.assertEquals(path.size(), 2);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("Z"));

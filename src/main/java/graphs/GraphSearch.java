@@ -1,9 +1,6 @@
 package graphs;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.util.*;
 
 public class GraphSearch {
 
@@ -77,7 +74,7 @@ public class GraphSearch {
 
         // BFS uses a queue of nodes to visit
         // queue is add poll to get and remove peek to see
-        PriorityQueue<Node> nodeQueue = new PriorityQueue<Node>();
+        Queue<Node> nodeQueue = new LinkedList<Node>();
         start.visit();
         nodeQueue.add(start);
 

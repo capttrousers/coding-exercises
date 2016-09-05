@@ -5,13 +5,13 @@ public class UnweightedEdge implements Edge {
     private Node rightNode;
 
     public UnweightedEdge(Node leftNode, Node rightNode) {
-        this.leftNode = leftNode;
-        this.rightNode = rightNode;
+        setLeftNode(leftNode);
+        setRightNode(rightNode);
     }
 
     public UnweightedEdge(UnweightedEdge edge) {
-        this.leftNode = edge.getLeftNode();
-        this.rightNode = edge.getRightNode();
+        setLeftNode(edge.getLeftNode());
+        setRightNode(edge.getRightNode());
     }
 
 

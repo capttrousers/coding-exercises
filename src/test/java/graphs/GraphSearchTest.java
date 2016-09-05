@@ -25,6 +25,8 @@ public class GraphSearchTest {
 
     private Graph graph1;
     private Graph graph2;
+    private Graph graph3;
+    private Graph graph4;
 
     @Before
     public void setUp() throws Exception {
@@ -80,7 +82,7 @@ public class GraphSearchTest {
         Edge edgeBetweenFandG = new UnweightedEdge(nodeF, nodeG);
         Edge edgeBetweenGandH = new UnweightedEdge(nodeG, nodeH);
         Edge edgeBetweenAandZ = new UnweightedEdge(nodeA, nodeZ);
-        Edge edgeBetweenZandH = new UnweightedEdge(nodeZ, nodeH);
+        Edge edgeBetweenHandZ = new UnweightedEdge(nodeZ, nodeH);
 
         List<Edge> edgesForGraph2 = new LinkedList<Edge>();
         edgesForGraph2.add(edgeBetweenAandB);
@@ -91,7 +93,7 @@ public class GraphSearchTest {
         edgesForGraph2.add(edgeBetweenFandG);
         edgesForGraph2.add(edgeBetweenGandH);
         edgesForGraph2.add(edgeBetweenAandZ);
-        edgesForGraph2.add(edgeBetweenZandH);
+        edgesForGraph2.add(edgeBetweenHandZ);
 
         //
         // Graph #2: Different solutions for DFS and BFS (unweighted, undirected)
@@ -100,6 +102,92 @@ public class GraphSearchTest {
         //     \------------> Z -------------/
         //
         graph2 = new UndirectedGraph(edgesForGraph2, nodesForGraph2);
+
+
+        // graph 2 has all nodes A - H & Z
+        List<Node> nodesForGraph3 = nodesForGraph2;
+
+//        Edge edgeBetweenHandZ = new UnweightedEdge(nodeZ, nodeH);
+        /*
+         * make edges, then make edge list:
+         * graph 3 has edges:
+         * A - D
+         * B - D
+         * B - C ~
+         * C - D ~
+         * D - F
+         * D - H
+         * H - Z ~
+         * E - Z
+         * E - G
+         */
+        Edge edgeBetweenEandZ = new UnweightedEdge(nodeZ, nodeE);
+        Edge edgeBetweenEandG = new UnweightedEdge(nodeG, nodeE);
+        Edge edgeBetweenDandH = new UnweightedEdge(nodeD, nodeH);
+        Edge edgeBetweenDandF = new UnweightedEdge(nodeD, nodeF);
+        Edge edgeBetweenBandD = new UnweightedEdge(nodeB, nodeD);
+        Edge edgeBetweenAandD = new UnweightedEdge(nodeA, nodeD);
+
+        List<Edge> edgesForGraph3 = new LinkedList<Edge>();
+        edgesForGraph3.add(edgeBetweenBandC);
+        edgesForGraph3.add(edgeBetweenCandD);
+        edgesForGraph3.add(edgeBetweenHandZ);
+        edgesForGraph3.add(edgeBetweenEandZ);
+        edgesForGraph3.add(edgeBetweenEandG);
+        edgesForGraph3.add(edgeBetweenDandH);
+        edgesForGraph3.add(edgeBetweenDandF);
+        edgesForGraph3.add(edgeBetweenBandD);
+        edgesForGraph3.add(edgeBetweenAandD);
+
+
+
+        //
+        // Graph #3: see graph3.png
+        //
+        graph3 = new UndirectedGraph(edgesForGraph3, nodesForGraph3);
+
+
+        // graph 2 has all nodes A - H & Z
+        List<Node> nodesForGraph4 = nodesForGraph2;
+
+//        Edge edgeBetweenHandZ = new UnweightedEdge(nodeZ, nodeH);
+        /*
+         * make edges, then make edge list:
+         * graph 4 has edges:
+         * a-b ~
+         * b-e
+         * b-h
+         * e-g ~
+         * g-h ~
+         * h-z ~
+         * h-d ~
+         * d-f ~
+         * d-c ~
+         * c-f
+         *
+         */
+        Edge edgeBetweenBandE = new UnweightedEdge(nodeB, nodeE);
+        Edge edgeBetweenBandH = new UnweightedEdge(nodeB, nodeH);
+        Edge edgeBetweenCandF = new UnweightedEdge(nodeC, nodeF);
+
+
+        List<Edge> edgesForGraph4 = new LinkedList<Edge>();
+        edgesForGraph4.add(edgeBetweenCandD);
+        edgesForGraph4.add(edgeBetweenHandZ);
+        edgesForGraph4.add(edgeBetweenEandG);
+        edgesForGraph4.add(edgeBetweenDandH);
+        edgesForGraph4.add(edgeBetweenDandF);
+        edgesForGraph4.add(edgeBetweenAandB);
+        edgesForGraph4.add(edgeBetweenGandH);
+        edgesForGraph4.add(edgeBetweenBandE);
+        edgesForGraph4.add(edgeBetweenBandH);
+        edgesForGraph4.add(edgeBetweenCandF);
+
+
+        //
+        // Graph #4: see graph4.png
+        //
+        graph4 = new UndirectedGraph(edgesForGraph4, nodesForGraph4);
 
     }
 
@@ -148,5 +236,51 @@ public class GraphSearchTest {
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("Z"));
         Assert.assertTrue(path.get(2).getValue().equals("H"));
+    }
+
+    @Test
+    public void depthFirstSearchGraph03() throws Exception {
+        List<Node> path = GraphSearch.depthFirstSearch(graph3, nodeB, nodeE);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("B"));
+        Assert.assertTrue(path.get(1).getValue().equals("C"));
+        Assert.assertTrue(path.get(2).getValue().equals("D"));
+        Assert.assertTrue(path.get(3).getValue().equals("H"));
+        Assert.assertTrue(path.get(4).getValue().equals("Z"));
+        Assert.assertTrue(path.get(5).getValue().equals("E"));
+    }
+
+    @Test
+    public void breadthFirstSearchGraph03() throws Exception {
+        List<Node> path = GraphSearch.breadthFirstSearch(graph3, nodeB, nodeE);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("B"));
+        Assert.assertTrue(path.get(1).getValue().equals("D"));
+        Assert.assertTrue(path.get(2).getValue().equals("H"));
+        Assert.assertTrue(path.get(3).getValue().equals("Z"));
+        Assert.assertTrue(path.get(4).getValue().equals("E"));
+    }
+
+    @Test
+    public void depthFirstSearchGraph04() throws Exception {
+        List<Node> path = GraphSearch.depthFirstSearch(graph4, nodeB, nodeF);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("B"));
+        Assert.assertTrue(path.get(1).getValue().equals("C"));
+        Assert.assertTrue(path.get(2).getValue().equals("D"));
+        Assert.assertTrue(path.get(3).getValue().equals("H"));
+        Assert.assertTrue(path.get(4).getValue().equals("Z"));
+        Assert.assertTrue(path.get(5).getValue().equals("E"));
+    }
+
+    @Test
+    public void breadthFirstSearchGraph04() throws Exception {
+        List<Node> path = GraphSearch.breadthFirstSearch(graph4, nodeB, nodeF);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("B"));
+        Assert.assertTrue(path.get(1).getValue().equals("D"));
+        Assert.assertTrue(path.get(2).getValue().equals("H"));
+        Assert.assertTrue(path.get(3).getValue().equals("Z"));
+        Assert.assertTrue(path.get(4).getValue().equals("E"));
     }
 }

@@ -45,8 +45,45 @@ public class GraphSearch {
         return nodeList;
     }
 
+    public static List<Node> depthFirstSearchRecursive(Graph graph, Node start, Node finish) {
+        if (graph == null || graph.isEmpty()) {
+            throw new IllegalArgumentException("empty or null graph");
+        }
+        // DFS uses a stack of nodes visited
+        // stack is push pop peek : peek to see
+        Stack<Node> location = new Stack<Node>();
+        start.visit();
+        location.push(start);
+        return depthFirstSearchRecursive(graph, start, finish, location);
+    }
+
+    public static List<Node> depthFirstSearchRecursive(Graph graph, Node start, Node finish, Stack<Node> location) {
+
+        Node currentNode = location.peek();
+        List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
+        // getNextNode can return null
+        Node nextNode = getNextNode(incidentEdges, currentNode);
+        if (nextNode == null) {
+            location.pop();
+            if (location.isEmpty()) {
+                // if search has not found finish, because stack has been filled and emptied
+                return null;
+            }
+        } else if (nextNode.equals(finish)) {
+            location.push(nextNode);
+            return new LinkedList<Node>(location);
+        } else {
+            // so i declared this function on the Node interface, which im using as the Type throughout
+            // this algo, but in practice the Node will actually be an instance of GraphNode which is where i
+            // have actually impleneted what .visit() does, correct?
+            nextNode.visit();
+            location.push(nextNode);
+        }
+        return depthFirstSearchRecursive(graph, start, finish, location);
+    }
+
     private static Node<String> getNextNode(List<Edge> incidentEdges, Node<String> startingNode) {
-        if (incidentEdges.isEmpty() || incidentEdges == null) {
+        if (incidentEdges.isEmpty() || incidentEdges == null || startingNode == null) {
             return null;
         } else {
             for (Edge edge : incidentEdges) {
@@ -58,7 +95,6 @@ public class GraphSearch {
             return null;
         }
     }
-
 
     public static List<Node> breadthFirstSearch(Graph graph,  Node start, Node finish) {
         if (graph == null || graph.isEmpty()) {

@@ -204,6 +204,18 @@ public class GraphSearchTest {
     }
 
     @Test
+    public void depthFirstSearchRecursiveGraph01() throws Exception {
+        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph1, nodeA, nodeF);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("A"));
+        Assert.assertTrue(path.get(1).getValue().equals("B"));
+        Assert.assertTrue(path.get(2).getValue().equals("C"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("E"));
+        Assert.assertTrue(path.get(5).getValue().equals("F"));
+    }
+
+    @Test
     public void breadthFirstSearchGraph01() throws Exception {
         List<Node> path = GraphSearch.breadthFirstSearch(graph1, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
@@ -230,9 +242,23 @@ public class GraphSearchTest {
     }
 
     @Test
+    public void depthFirstSearchRecursiveGraph02() throws Exception {
+        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph2, nodeA, nodeH);
+        Assert.assertEquals(path.size(), 8);
+        Assert.assertTrue(path.get(0).getValue().equals("A"));
+        Assert.assertTrue(path.get(1).getValue().equals("B"));
+        Assert.assertTrue(path.get(2).getValue().equals("C"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("E"));
+        Assert.assertTrue(path.get(5).getValue().equals("F"));
+        Assert.assertTrue(path.get(6).getValue().equals("G"));
+        Assert.assertTrue(path.get(7).getValue().equals("H"));
+    }
+
+    @Test
     public void breadthFirstSearchGraph02() throws Exception {
         List<Node> path = GraphSearch.breadthFirstSearch(graph2, nodeA, nodeH);
-        Assert.assertEquals(path.size(), 2);
+        Assert.assertEquals(path.size(), 3);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("Z"));
         Assert.assertTrue(path.get(2).getValue().equals("H"));
@@ -241,6 +267,18 @@ public class GraphSearchTest {
     @Test
     public void depthFirstSearchGraph03() throws Exception {
         List<Node> path = GraphSearch.depthFirstSearch(graph3, nodeB, nodeE);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("B"));
+        Assert.assertTrue(path.get(1).getValue().equals("C"));
+        Assert.assertTrue(path.get(2).getValue().equals("D"));
+        Assert.assertTrue(path.get(3).getValue().equals("H"));
+        Assert.assertTrue(path.get(4).getValue().equals("Z"));
+        Assert.assertTrue(path.get(5).getValue().equals("E"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveGraph03() throws Exception {
+        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph3, nodeB, nodeE);
         Assert.assertEquals(path.size(), 6);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
         Assert.assertTrue(path.get(1).getValue().equals("C"));
@@ -264,23 +302,36 @@ public class GraphSearchTest {
     @Test
     public void depthFirstSearchGraph04() throws Exception {
         List<Node> path = GraphSearch.depthFirstSearch(graph4, nodeB, nodeF);
-        Assert.assertEquals(path.size(), 6);
+        Assert.assertEquals(path.size(), 7);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
-        Assert.assertTrue(path.get(1).getValue().equals("C"));
-        Assert.assertTrue(path.get(2).getValue().equals("D"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
         Assert.assertTrue(path.get(3).getValue().equals("H"));
-        Assert.assertTrue(path.get(4).getValue().equals("Z"));
-        Assert.assertTrue(path.get(5).getValue().equals("E"));
+        Assert.assertTrue(path.get(4).getValue().equals("D"));
+        Assert.assertTrue(path.get(5).getValue().equals("C"));
+        Assert.assertTrue(path.get(6).getValue().equals("F"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveGraph04() throws Exception {
+        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph4, nodeB, nodeF);
+        Assert.assertEquals(path.size(), 7);
+        Assert.assertTrue(path.get(0).getValue().equals("B"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("H"));
+        Assert.assertTrue(path.get(4).getValue().equals("D"));
+        Assert.assertTrue(path.get(5).getValue().equals("C"));
+        Assert.assertTrue(path.get(6).getValue().equals("F"));
     }
 
     @Test
     public void breadthFirstSearchGraph04() throws Exception {
         List<Node> path = GraphSearch.breadthFirstSearch(graph4, nodeB, nodeF);
-        Assert.assertEquals(path.size(), 5);
+        Assert.assertEquals(path.size(), 4);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
-        Assert.assertTrue(path.get(1).getValue().equals("D"));
-        Assert.assertTrue(path.get(2).getValue().equals("H"));
-        Assert.assertTrue(path.get(3).getValue().equals("Z"));
-        Assert.assertTrue(path.get(4).getValue().equals("E"));
+        Assert.assertTrue(path.get(1).getValue().equals("H"));
+        Assert.assertTrue(path.get(2).getValue().equals("D"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
     }
 }

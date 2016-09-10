@@ -50,3 +50,6 @@ gradle-app.setting
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+
+# gimp image file to make pngs of graphs for tests
+*.xcf

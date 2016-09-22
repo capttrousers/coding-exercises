@@ -74,7 +74,7 @@ public class GraphSearchTest {
         // Graph #1: Straight line (unweighted, undirected)
         //  A -> B -> C -> D -> E -> F
         //
-        graph1 = new UndirectedGraph(edgesForGraph1, nodesForGraph1);
+        graph1 = new GraphClass(nodesForGraph1, edgesForGraph1);
 
         List<Node> nodesForGraph2 = new LinkedList<Node>(Arrays.asList(
                 nodeA,
@@ -110,8 +110,7 @@ public class GraphSearchTest {
         //    \                               /
         //     \------------> Z -------------/
         //
-        graph2 = new UndirectedGraph(edgesForGraph2, nodesForGraph2);
-
+        graph2 = new GraphClass(nodesForGraph2, edgesForGraph2);
 
         // graph 2 has all nodes A - H & Z
         List<Node> nodesForGraph3 = nodesForGraph2;
@@ -130,6 +129,7 @@ public class GraphSearchTest {
          * E - Z
          * E - G
          */
+
         Edge edgeBetweenEandZ = new UnweightedEdge(nodeZ, nodeE);
         Edge edgeBetweenEandG = new UnweightedEdge(nodeG, nodeE);
         Edge edgeBetweenDandH = new UnweightedEdge(nodeD, nodeH);
@@ -151,7 +151,7 @@ public class GraphSearchTest {
         //
         // Graph #3: see graph3.png
         //
-        graph3 = new UndirectedGraph(edgesForGraph3, nodesForGraph3);
+        graph3 = new GraphClass(nodesForGraph3, edgesForGraph3);
 
         // graph 2 has all nodes A - H & Z
         List<Node> nodesForGraph4 = nodesForGraph2;
@@ -193,7 +193,7 @@ public class GraphSearchTest {
         //
         // Graph #4: see graph4.png
         //
-        graph4 = new UndirectedGraph(edgesForGraph4, nodesForGraph4);
+        graph4 = new GraphClass(nodesForGraph4, edgesForGraph4);
 
 
         // graph 2 has all nodes A - H & Z
@@ -202,7 +202,7 @@ public class GraphSearchTest {
         // Graph #5: graph with nodes from graph 2 and edges from graph 1
         //
         // start and target have no path, will return empty list
-        graph5 = new UndirectedGraph(edgesForGraph1, nodesForGraph5);
+        graph5 = new GraphClass(nodesForGraph5, edgesForGraph1);
 
 
 
@@ -256,7 +256,7 @@ public class GraphSearchTest {
         //
         // Graph #6: graph with nodes from graph 1, fully connected
         //
-        graph6 = new UndirectedGraph(edgesForGraph6, nodesForGraph6);
+        graph6 = new GraphClass(nodesForGraph6, edgesForGraph6);
 
         // graph 2 has all nodes A - H & Z
         List<Node> nodesForGraph7 = nodesForGraph2;
@@ -307,8 +307,12 @@ public class GraphSearchTest {
         edgesForGraph7.add(edgeBetweenAandG);
         edgesForGraph7.add(edgeBetweenGandZ);
         edgesForGraph7.add(edgeBetweenFandH);
-        
-        graph7 = new UndirectedGraph(edgesForGraph7, nodesForGraph7);
+        // graph 7 .png
+        graph7 = new GraphClass(nodesForGraph7, edgesForGraph7);
+
+
+
+
     }
 
     @Test
@@ -621,21 +625,22 @@ public class GraphSearchTest {
     @Test
     public void depthFirstSearchEmptyGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearch(new UndirectedGraph(), nodeA, nodeZ);
+        List<Node> path = GraphSearch.depthFirstSearch(new GraphClass(), nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void depthFirstSearchRecursiveEmptyGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(new UndirectedGraph(), nodeA, nodeZ);
+        List<Node> path = GraphSearch.depthFirstSearchRecursive(new GraphClass(), nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void breadthFirstSearchEmptyGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.breadthFirstSearch(new UndirectedGraph(), nodeA, nodeZ);
+        List<Node> path = GraphSearch.breadthFirstSearch(new GraphClass(), nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
+
 }

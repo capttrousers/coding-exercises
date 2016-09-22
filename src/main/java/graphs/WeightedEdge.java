@@ -1,6 +1,6 @@
 package graphs;
 
-public class WeightedEdge implements Edge {
+public class WeightedEdge implements Edge, Comparable<WeightedEdge> {
     private Node leftNode;
     private Node rightNode;
     private double weight;
@@ -11,14 +11,14 @@ public class WeightedEdge implements Edge {
         this.weight = weight;
     }
 
-    public WeightedEdge(WeightedEdge edge){
+    public WeightedEdge(WeightedEdge edge) {
         this.leftNode = edge.getLeftNode();
         this.rightNode = edge.getRightNode();
         this.weight = edge.getWeight();
     }
 
     public double getWeight() {
-        return weight;
+        return this.weight;
     }
 
     public void setWeight(double weight) {
@@ -61,4 +61,16 @@ public class WeightedEdge implements Edge {
             return null;
         }
     }
+
+    // "Note: this class has a natural ordering that is inconsistent with equals."
+    public int compareTo(WeightedEdge edge) {
+        // is it necessary to specify "this."
+        if(edge.getWeight() > this.getWeight()) {
+            return -1;
+        } else if (this.getWeight() > edge.getWeight()){
+            return 1;
+        }
+        return 0;
+    }
+
 }

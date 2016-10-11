@@ -15,23 +15,30 @@ import java.util.List;
  */
 public class GraphSearchTest {
 
-    private Node<String> nodeA;
-    private Node<String> nodeB;
-    private Node<String> nodeC;
-    private Node<String> nodeD;
-    private Node<String> nodeE;
-    private Node<String> nodeF;
-    private Node<String> nodeG;
-    private Node<String> nodeH;
-    private Node<String> nodeZ;
+    private GraphNode<String> nodeA;
+    private GraphNode<String> nodeB;
+    private GraphNode<String> nodeC;
+    private GraphNode<String> nodeD;
+    private GraphNode<String> nodeE;
+    private GraphNode<String> nodeF;
+    private GraphNode<String> nodeG;
+    private GraphNode<String> nodeH;
+    private GraphNode<String> nodeZ;
 
-    private Graph graph1,
-                  graph2,
-                  graph3,
-                  graph4,
-                  graph5,
-                  graph6,
-                  graph7;
+    private GraphClass UndirectedUnweightedgraph1,
+                  UndirectedUnweightedgraph2,
+                  UndirectedUnweightedgraph3,
+                  UndirectedUnweightedgraph4,
+                  UndirectedUnweightedgraph5,
+                  UndirectedUnweightedgraph6,
+                  UndirectedUnweightedgraph7,
+                  DirectedUnweightedGraph8,
+                  DirectedUnweightedGraph9,
+                  DirectedUnweightedGraph10,
+                  DirectedWeightedGraph11,
+                  DirectedWeightedGraph12,
+                  DirectedWeightedGraph13;
+
 
 
     @Rule
@@ -49,7 +56,7 @@ public class GraphSearchTest {
         nodeH = new GraphNode<String>("H");
         nodeZ = new GraphNode<String>("Z");
 
-        List<Node> nodesForGraph1 = new LinkedList<Node>(Arrays.asList(
+        List<GraphNode> nodesForUndirectedUnweightedGraph1 = new LinkedList<GraphNode>(Arrays.asList(
                 nodeA,
                 nodeB,
                 nodeC,
@@ -58,25 +65,25 @@ public class GraphSearchTest {
                 nodeF
         ));
 
-        Edge edgeBetweenAandB = new UnweightedEdge(nodeA, nodeB);
-        Edge edgeBetweenBandC = new UnweightedEdge(nodeB, nodeC);
-        Edge edgeBetweenCandD = new UnweightedEdge(nodeC, nodeD);
-        Edge edgeBetweenDandE = new UnweightedEdge(nodeD, nodeE);
-        Edge edgeBetweenEandF = new UnweightedEdge(nodeE, nodeF);
+        GraphEdge edgeBetweenAandB = new GraphEdge(nodeA, nodeB);
+        GraphEdge edgeBetweenBandC = new GraphEdge(nodeB, nodeC);
+        GraphEdge edgeBetweenCandD = new GraphEdge(nodeC, nodeD);
+        GraphEdge edgeBetweenDandE = new GraphEdge(nodeD, nodeE);
+        GraphEdge edgeBetweenEandF = new GraphEdge(nodeE, nodeF);
 
-        List<Edge> edgesForGraph1 = new LinkedList<Edge>();
-        edgesForGraph1.add(edgeBetweenAandB);
-        edgesForGraph1.add(edgeBetweenBandC);
-        edgesForGraph1.add(edgeBetweenCandD);
-        edgesForGraph1.add(edgeBetweenDandE);
-        edgesForGraph1.add(edgeBetweenEandF);
+        List<GraphEdge> edgesForUndirectedUnweightedGraph1 = new LinkedList<GraphEdge>();
+        edgesForUndirectedUnweightedGraph1.add(edgeBetweenAandB);
+        edgesForUndirectedUnweightedGraph1.add(edgeBetweenBandC);
+        edgesForUndirectedUnweightedGraph1.add(edgeBetweenCandD);
+        edgesForUndirectedUnweightedGraph1.add(edgeBetweenDandE);
+        edgesForUndirectedUnweightedGraph1.add(edgeBetweenEandF);
         //
         // Graph #1: Straight line (unweighted, undirected)
         //  A -> B -> C -> D -> E -> F
         //
-        graph1 = new GraphClass(nodesForGraph1, edgesForGraph1);
+        UndirectedUnweightedgraph1 = new GraphClass(nodesForUndirectedUnweightedGraph1, edgesForUndirectedUnweightedGraph1);
 
-        List<Node> nodesForGraph2 = new LinkedList<Node>(Arrays.asList(
+        List<GraphNode> nodesForUndirectedUnweightedGraph2 = new LinkedList<GraphNode>(Arrays.asList(
                 nodeA,
                 nodeB,
                 nodeC,
@@ -88,21 +95,21 @@ public class GraphSearchTest {
                 nodeZ
         ));
 
-        Edge edgeBetweenFandG = new UnweightedEdge(nodeF, nodeG);
-        Edge edgeBetweenGandH = new UnweightedEdge(nodeG, nodeH);
-        Edge edgeBetweenAandZ = new UnweightedEdge(nodeA, nodeZ);
-        Edge edgeBetweenHandZ = new UnweightedEdge(nodeZ, nodeH);
+        GraphEdge edgeBetweenFandG = new GraphEdge(nodeF, nodeG);
+        GraphEdge edgeBetweenGandH = new GraphEdge(nodeG, nodeH);
+        GraphEdge edgeBetweenAandZ = new GraphEdge(nodeA, nodeZ);
+        GraphEdge edgeBetweenHandZ = new GraphEdge(nodeH, nodeZ);
 
-        List<Edge> edgesForGraph2 = new LinkedList<Edge>();
-        edgesForGraph2.add(edgeBetweenAandB);
-        edgesForGraph2.add(edgeBetweenBandC);
-        edgesForGraph2.add(edgeBetweenCandD);
-        edgesForGraph2.add(edgeBetweenDandE);
-        edgesForGraph2.add(edgeBetweenEandF);
-        edgesForGraph2.add(edgeBetweenFandG);
-        edgesForGraph2.add(edgeBetweenGandH);
-        edgesForGraph2.add(edgeBetweenAandZ);
-        edgesForGraph2.add(edgeBetweenHandZ);
+        List<GraphEdge> edgesForUndirectedUnweightedGraph2 = new LinkedList<GraphEdge>();
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenAandB);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenBandC);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenCandD);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenDandE);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenEandF);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenFandG);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenGandH);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenAandZ);
+        edgesForUndirectedUnweightedGraph2.add(edgeBetweenHandZ);
 
         //
         // Graph #2: Different solutions for DFS and BFS (unweighted, undirected)
@@ -110,12 +117,12 @@ public class GraphSearchTest {
         //    \                               /
         //     \------------> Z -------------/
         //
-        graph2 = new GraphClass(nodesForGraph2, edgesForGraph2);
+        UndirectedUnweightedgraph2 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForUndirectedUnweightedGraph2);
 
         // graph 2 has all nodes A - H & Z
-        List<Node> nodesForGraph3 = nodesForGraph2;
+        List<GraphNode> nodesForUndirectedUnweightedGraph3 = nodesForUndirectedUnweightedGraph2;
 
-//        Edge edgeBetweenHandZ = new UnweightedEdge(nodeZ, nodeH);
+//        GraphEdge edgeBetweenHandZ = new GraphEdge(nodeZ, nodeH);
         /*
          * make edges, then make edge list:
          * graph 3 has edges:
@@ -130,33 +137,33 @@ public class GraphSearchTest {
          * E - G
          */
 
-        Edge edgeBetweenEandZ = new UnweightedEdge(nodeZ, nodeE);
-        Edge edgeBetweenEandG = new UnweightedEdge(nodeG, nodeE);
-        Edge edgeBetweenDandH = new UnweightedEdge(nodeD, nodeH);
-        Edge edgeBetweenDandF = new UnweightedEdge(nodeD, nodeF);
-        Edge edgeBetweenBandD = new UnweightedEdge(nodeB, nodeD);
-        Edge edgeBetweenAandD = new UnweightedEdge(nodeA, nodeD);
+        GraphEdge edgeBetweenEandZ = new GraphEdge(nodeE, nodeZ);
+        GraphEdge edgeBetweenEandG = new GraphEdge(nodeE, nodeG);
+        GraphEdge edgeBetweenDandH = new GraphEdge(nodeD, nodeH);
+        GraphEdge edgeBetweenDandF = new GraphEdge(nodeD, nodeF);
+        GraphEdge edgeBetweenBandD = new GraphEdge(nodeB, nodeD);
+        GraphEdge edgeBetweenAandD = new GraphEdge(nodeA, nodeD);
 
-        List<Edge> edgesForGraph3 = new LinkedList<Edge>();
-        edgesForGraph3.add(edgeBetweenBandC);
-        edgesForGraph3.add(edgeBetweenCandD);
-        edgesForGraph3.add(edgeBetweenHandZ);
-        edgesForGraph3.add(edgeBetweenEandZ);
-        edgesForGraph3.add(edgeBetweenEandG);
-        edgesForGraph3.add(edgeBetweenDandH);
-        edgesForGraph3.add(edgeBetweenDandF);
-        edgesForGraph3.add(edgeBetweenBandD);
-        edgesForGraph3.add(edgeBetweenAandD);
+        List<GraphEdge> edgesForUndirectedUnweightedGraph3 = new LinkedList<GraphEdge>();
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenBandC);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenCandD);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenHandZ);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenEandZ);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenEandG);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenDandH);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenDandF);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenBandD);
+        edgesForUndirectedUnweightedGraph3.add(edgeBetweenAandD);
 
         //
-        // Graph #3: see graph3.png
+        // Graph #3: see UndirectedUnweightedgraph3.png
         //
-        graph3 = new GraphClass(nodesForGraph3, edgesForGraph3);
+        UndirectedUnweightedgraph3 = new GraphClass(nodesForUndirectedUnweightedGraph3, edgesForUndirectedUnweightedGraph3);
 
         // graph 2 has all nodes A - H & Z
-        List<Node> nodesForGraph4 = nodesForGraph2;
+        List<GraphNode> nodesForUndirectedUnweightedGraph4 = nodesForUndirectedUnweightedGraph2;
 
-//        Edge edgeBetweenHandZ = new UnweightedEdge(nodeZ, nodeH);
+//        GraphEdge edgeBetweenHandZ = new GraphEdge(nodeZ, nodeH);
         /*
          * make edges, then make edge list:
          * graph 4 has edges:
@@ -172,42 +179,42 @@ public class GraphSearchTest {
          * c-f
          *
          */
-        Edge edgeBetweenBandE = new UnweightedEdge(nodeB, nodeE);
-        Edge edgeBetweenBandH = new UnweightedEdge(nodeB, nodeH);
-        Edge edgeBetweenCandF = new UnweightedEdge(nodeC, nodeF);
+        GraphEdge edgeBetweenBandE = new GraphEdge(nodeB, nodeE);
+        GraphEdge edgeBetweenBandH = new GraphEdge(nodeB, nodeH);
+        GraphEdge edgeBetweenCandF = new GraphEdge(nodeC, nodeF);
 
 
-        List<Edge> edgesForGraph4 = new LinkedList<Edge>();
-        edgesForGraph4.add(edgeBetweenCandD);
-        edgesForGraph4.add(edgeBetweenHandZ);
-        edgesForGraph4.add(edgeBetweenEandG);
-        edgesForGraph4.add(edgeBetweenDandH);
-        edgesForGraph4.add(edgeBetweenDandF);
-        edgesForGraph4.add(edgeBetweenAandB);
-        edgesForGraph4.add(edgeBetweenGandH);
-        edgesForGraph4.add(edgeBetweenBandE);
-        edgesForGraph4.add(edgeBetweenBandH);
-        edgesForGraph4.add(edgeBetweenCandF);
+        List<GraphEdge> edgesForUndirectedUnweightedGraph4 = new LinkedList<GraphEdge>();
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenCandD);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenHandZ);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenEandG);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenDandH);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenDandF);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenAandB);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenGandH);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenBandE);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenBandH);
+        edgesForUndirectedUnweightedGraph4.add(edgeBetweenCandF);
 
 
         //
-        // Graph #4: see graph4.png
+        // Graph #4: see UndirectedUnweightedgraph4.png
         //
-        graph4 = new GraphClass(nodesForGraph4, edgesForGraph4);
+        UndirectedUnweightedgraph4 = new GraphClass(nodesForUndirectedUnweightedGraph4, edgesForUndirectedUnweightedGraph4);
 
 
         // graph 2 has all nodes A - H & Z
-        List<Node> nodesForGraph5 = nodesForGraph2;
+        List<GraphNode> nodesForUndirectedUnweightedGraph5 = nodesForUndirectedUnweightedGraph2;
         //
         // Graph #5: graph with nodes from graph 2 and edges from graph 1
         //
         // start and target have no path, will return empty list
-        graph5 = new GraphClass(nodesForGraph5, edgesForGraph1);
+        UndirectedUnweightedgraph5 = new GraphClass(nodesForUndirectedUnweightedGraph5, edgesForUndirectedUnweightedGraph1);
 
 
 
         // graph 2 has all nodes A - H & Z
-        List<Node> nodesForGraph6 = nodesForGraph2;
+        List<GraphNode> nodesForUndirectedUnweightedGraph6 = nodesForUndirectedUnweightedGraph2;
         /*
          * make edges, then make edge list:
          * graph 6 nodes A-F, and all edges (15)
@@ -229,37 +236,37 @@ public class GraphSearchTest {
          *
          */
 
-        Edge edgeBetweenCandE = new UnweightedEdge(nodeC, nodeE);
-        Edge edgeBetweenBandF = new UnweightedEdge(nodeB, nodeF);
-        Edge edgeBetweenAandF = new UnweightedEdge(nodeA, nodeF);
-        Edge edgeBetweenAandE = new UnweightedEdge(nodeA, nodeE);
-        Edge edgeBetweenAandC = new UnweightedEdge(nodeA, nodeC);
+        GraphEdge edgeBetweenCandE = new GraphEdge(nodeC, nodeE);
+        GraphEdge edgeBetweenBandF = new GraphEdge(nodeB, nodeF);
+        GraphEdge edgeBetweenAandF = new GraphEdge(nodeA, nodeF);
+        GraphEdge edgeBetweenAandE = new GraphEdge(nodeA, nodeE);
+        GraphEdge edgeBetweenAandC = new GraphEdge(nodeA, nodeC);
 
 
-        List<Edge> edgesForGraph6 = new LinkedList<Edge>(edgesForGraph1);
-        edgesForGraph6.add(edgeBetweenCandF);
-        edgesForGraph6.add(edgeBetweenAandB);
-        edgesForGraph6.add(edgeBetweenAandD);
-        edgesForGraph6.add(edgeBetweenBandC);
-        edgesForGraph6.add(edgeBetweenBandD);
-        edgesForGraph6.add(edgeBetweenBandE);
-        edgesForGraph6.add(edgeBetweenCandD);
-        edgesForGraph6.add(edgeBetweenCandE);
-        edgesForGraph6.add(edgeBetweenDandE);
-        edgesForGraph6.add(edgeBetweenDandF);
-        edgesForGraph6.add(edgeBetweenEandF);
-        edgesForGraph6.add(edgeBetweenBandF);
-        edgesForGraph6.add(edgeBetweenAandF);
-        edgesForGraph6.add(edgeBetweenAandE);
-        edgesForGraph6.add(edgeBetweenAandC);
+        List<GraphEdge> edgesForUndirectedUnweightedGraph6 = new LinkedList<GraphEdge>(edgesForUndirectedUnweightedGraph1);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenCandF);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenAandB);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenAandD);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenBandC);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenBandD);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenBandE);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenCandD);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenCandE);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenDandE);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenDandF);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenEandF);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenBandF);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenAandF);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenAandE);
+        edgesForUndirectedUnweightedGraph6.add(edgeBetweenAandC);
 
         //
         // Graph #6: graph with nodes from graph 1, fully connected
         //
-        graph6 = new GraphClass(nodesForGraph6, edgesForGraph6);
+        UndirectedUnweightedgraph6 = new GraphClass(nodesForUndirectedUnweightedGraph6, edgesForUndirectedUnweightedGraph6);
 
         // graph 2 has all nodes A - H & Z
-        List<Node> nodesForGraph7 = nodesForGraph2;
+        List<GraphNode> nodesForUndirectedUnweightedGraph7 = nodesForUndirectedUnweightedGraph2;
         // edges needed (17):
         /*
          * a-b ~
@@ -283,41 +290,287 @@ public class GraphSearchTest {
          */
 
 
-        Edge edgeBetweenCandH = new UnweightedEdge(nodeC, nodeH);
-        Edge edgeBetweenBandG = new UnweightedEdge(nodeB, nodeG);
-        Edge edgeBetweenAandG = new UnweightedEdge(nodeA, nodeG);
-        Edge edgeBetweenGandZ = new UnweightedEdge(nodeG, nodeZ);
-        Edge edgeBetweenFandH = new UnweightedEdge(nodeF, nodeH);
+        GraphEdge edgeBetweenCandH = new GraphEdge(nodeC, nodeH);
+        GraphEdge edgeBetweenBandG = new GraphEdge(nodeB, nodeG);
+        GraphEdge edgeBetweenAandG = new GraphEdge(nodeA, nodeG);
+        GraphEdge edgeBetweenGandZ = new GraphEdge(nodeG, nodeZ);
+        GraphEdge edgeBetweenFandH = new GraphEdge(nodeF, nodeH);
 
-        List<Edge> edgesForGraph7 = new LinkedList<Edge>();
-        edgesForGraph7.add(edgeBetweenAandB);
-        edgesForGraph7.add(edgeBetweenAandE);
-        edgesForGraph7.add(edgeBetweenAandZ);
-        edgesForGraph7.add(edgeBetweenBandE);
-        edgesForGraph7.add(edgeBetweenCandD);
-        edgesForGraph7.add(edgeBetweenCandF);
-        edgesForGraph7.add(edgeBetweenDandE);
-        edgesForGraph7.add(edgeBetweenDandF);
-        edgesForGraph7.add(edgeBetweenDandH);
-        edgesForGraph7.add(edgeBetweenEandG);
-        edgesForGraph7.add(edgeBetweenEandZ);
-        edgesForGraph7.add(edgeBetweenHandZ);
-        edgesForGraph7.add(edgeBetweenCandH);
-        edgesForGraph7.add(edgeBetweenBandG);
-        edgesForGraph7.add(edgeBetweenAandG);
-        edgesForGraph7.add(edgeBetweenGandZ);
-        edgesForGraph7.add(edgeBetweenFandH);
-        // graph 7 .png
-        graph7 = new GraphClass(nodesForGraph7, edgesForGraph7);
+        List<GraphEdge> edgesForUndirectedUnweightedGraph7 = new LinkedList<GraphEdge>();
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenAandB);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenAandE);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenAandZ);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenBandE);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenCandD);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenCandF);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenDandE);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenDandF);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenDandH);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenEandG);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenEandZ);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenHandZ);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenCandH);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenBandG);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenAandG);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenGandZ);
+        edgesForUndirectedUnweightedGraph7.add(edgeBetweenFandH);
+        //
+        //  Graph #7: graph7.png
+        //
+        UndirectedUnweightedgraph7 = new GraphClass(nodesForUndirectedUnweightedGraph7, edgesForUndirectedUnweightedGraph7);
 
 
+
+        /*
+         * graph 8
+         * 12 edges
+         * a-d ~
+         * b-d ~
+         * g-d
+         * z-g
+         * z-d
+         * h-z ~
+         * b-h ~
+         * f-b
+         * c-e ~
+         * d-c
+         * e-d
+         * d-f
+         */
+
+
+        GraphEdge edgeBetweenGandD = new GraphEdge(nodeG,nodeD);
+        GraphEdge edgeBetweenZandG = new GraphEdge(nodeZ,nodeG);
+        GraphEdge edgeBetweenZandD = new GraphEdge(nodeZ,nodeD);
+        GraphEdge edgeBetweenFandB = new GraphEdge(nodeF,nodeB);
+        GraphEdge edgeBetweenDandC = new GraphEdge(nodeD,nodeC);
+        GraphEdge edgeBetweenEandD = new GraphEdge(nodeE,nodeD);
+
+        List<GraphEdge> edgesForGraph8 = new LinkedList<GraphEdge>();
+        edgesForGraph8.add(edgeBetweenAandD);
+        edgesForGraph8.add(edgeBetweenBandD);
+        edgesForGraph8.add(edgeBetweenHandZ);
+        edgesForGraph8.add(edgeBetweenBandH);
+        edgesForGraph8.add(edgeBetweenCandE);
+        edgesForGraph8.add(edgeBetweenGandD);
+        edgesForGraph8.add(edgeBetweenZandG);
+        edgesForGraph8.add(edgeBetweenZandD);
+        edgesForGraph8.add(edgeBetweenFandB);
+        edgesForGraph8.add(edgeBetweenDandC);
+        edgesForGraph8.add(edgeBetweenEandD);
+        edgesForGraph8.add(edgeBetweenDandF);
+
+
+        // use nodes from graph 2
+        DirectedUnweightedGraph8 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph8);
+        DirectedUnweightedGraph8.setDirected(true);
+        //
+        // Graph #8: directed and unweighted
+        //
+
+
+        /*
+         * graph 9
+         * 12 edges
+         * a-b
+         * b-c
+         * c-e
+         * e-d
+         * g-d
+         * g-a
+         * z-g
+         * h-z
+         * f-h
+         * d-f
+         * e-z
+         * f-a
+         *
+         */
+
+        GraphEdge edgeBetweenGandA = new GraphEdge(nodeG, nodeA);
+        GraphEdge edgeBetweenFandA = new GraphEdge(nodeF, nodeA);
+
+        List<GraphEdge> edgesForGraph9 = new LinkedList<GraphEdge>();
+        edgesForGraph9.add(edgeBetweenAandB);
+        edgesForGraph9.add(edgeBetweenBandC);
+        edgesForGraph9.add(edgeBetweenCandE);
+        edgesForGraph9.add(edgeBetweenEandZ);
+        edgesForGraph9.add(edgeBetweenEandD);
+        edgesForGraph9.add(edgeBetweenGandD);
+        edgesForGraph9.add(edgeBetweenZandG);
+        edgesForGraph9.add(edgeBetweenHandZ);
+        edgesForGraph9.add(edgeBetweenFandH);
+        edgesForGraph9.add(edgeBetweenDandF);
+        edgesForGraph9.add(edgeBetweenGandA);
+        edgesForGraph9.add(edgeBetweenFandA);
+
+
+        DirectedUnweightedGraph9 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph9);
+        DirectedUnweightedGraph9.setDirected(true);
+        //
+        // Graph #9: directed and unweighted
+        //
+
+
+        /*
+         * graph 10
+         * 10 edges
+         * a-d
+         * a-c
+         * d-c
+         * z-c
+         * g-e
+         * e-b
+         * b-f
+         * f-h
+         * d-z
+         * g-a
+         */
+
+        GraphEdge edgeBetweenZandC = new GraphEdge(nodeZ, nodeC);
+        GraphEdge edgeBetweenGandE = new GraphEdge(nodeG, nodeE);
+        GraphEdge edgeBetweenEandB = new GraphEdge(nodeE, nodeB);
+        GraphEdge edgeBetweenDandZ = new GraphEdge(nodeD, nodeZ);
+        List<GraphEdge> edgesForGraph10 = new LinkedList<GraphEdge>();
+        edgesForGraph10.add(edgeBetweenAandD);
+        edgesForGraph10.add(edgeBetweenAandC);
+        edgesForGraph10.add(edgeBetweenDandC);
+        edgesForGraph10.add(edgeBetweenBandF);
+        edgesForGraph10.add(edgeBetweenFandH);
+        edgesForGraph10.add(edgeBetweenZandC);
+        edgesForGraph10.add(edgeBetweenGandE);
+        edgesForGraph10.add(edgeBetweenEandB);
+        edgesForGraph10.add(edgeBetweenDandZ);
+        edgesForGraph10.add(edgeBetweenGandA);
+
+        DirectedUnweightedGraph10 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph10);
+        DirectedUnweightedGraph10.setDirected(true);
+        //
+        // Graph #10: directed and unweighted
+        //
+
+
+        /*
+         * graph 8 but weighted
+         * 12 edges
+         * a-d
+         * b-d
+         * g-d
+         * z-g
+         * z-d 2, rest 1
+         * h-z
+         * b-h
+         * f-b
+         * c-e
+         * d-c
+         * e-d
+         * d-f
+         *
+         *
+         */
+        List<GraphEdge> edgesForGraph11 = new LinkedList<GraphEdge>();
+        edgesForGraph11.add(edgeBetweenAandD.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenZandD.setWeighted(true).setWeight(2));
+        edgesForGraph11.add(edgeBetweenBandD.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenHandZ.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenBandH.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenCandE.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenGandD.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenZandG.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenFandB.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenDandC.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenEandD.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenDandF.setWeighted(true).setWeight(1));
+        DirectedWeightedGraph11 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph11);
+        DirectedWeightedGraph11.setDirected(true);
+        DirectedWeightedGraph11.setWeighted(true);
+
+        //
+        // Graph #11: directed and weighted
+        //
+        
+        /*
+         * graph 9 but weighted
+         * 12 edges
+         * a-b
+         * b-c
+         * c-e
+         * e-d
+         * g-d
+         * g-a
+         * z-g
+         * h-z
+         * f-h
+         * d-f
+         * e-z
+         * f-a
+         *
+         */
+        List<GraphEdge> edgesForGraph12 = new LinkedList<GraphEdge>();
+        edgesForGraph12.add(edgeBetweenAandB.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenBandC.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenCandE.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenEandZ.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenEandD.setWeighted(true).setWeight(2));
+        edgesForGraph12.add(edgeBetweenGandD.setWeighted(true).setWeight(2));
+        edgesForGraph12.add(edgeBetweenZandG.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenHandZ.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenFandH.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenDandF.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenGandA.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenFandA.setWeighted(true).setWeight(1));
+        DirectedWeightedGraph12 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph12);
+        DirectedWeightedGraph12.setDirected(true);
+        DirectedWeightedGraph12.setWeighted(true);
+
+        //
+        // Graph #12: directed and weighted
+        //
+        
+        
+        /*
+         * graph 10 but weighted
+         * 10 edges
+         * a-d
+         * a-c
+         * d-c
+         * z-c
+         * g-e
+         * e-b
+         * b-f
+         * f-h
+         * d-z
+         * g-a
+         *
+         */
+
+        List<GraphEdge> edgesForGraph13 = new LinkedList<GraphEdge>();
+        edgesForGraph13.add(edgeBetweenAandD.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenAandC.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenDandC.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenBandF.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenFandH.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenZandC.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenGandE.setWeighted(true).setWeight(2));
+        edgesForGraph13.add(edgeBetweenEandB.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenDandZ.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenGandA.setWeighted(true).setWeight(1));
+
+        
+        DirectedWeightedGraph13 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph13);
+        DirectedWeightedGraph13.setDirected(true);
+        DirectedWeightedGraph13.setWeighted(true);
+
+        //
+        // Graph #13: directed and weighted
+        //
 
 
     }
 
     @Test
-    public void depthFirstSearchGraph01() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph1, nodeA, nodeF);
+    public void depthFirstSearchUndirectedUnweightedGraph01() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph1, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("B"));
@@ -328,8 +581,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchRecursiveGraph01() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph1, nodeA, nodeF);
+    public void depthFirstSearchRecursiveUndirectedUnweightedGraph01() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph1, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("B"));
@@ -340,8 +593,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void breadthFirstSearchGraph01() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph1, nodeA, nodeF);
+    public void breadthFirstSearchUndirectedUnweightedGraph01() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph1, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("B"));
@@ -352,8 +605,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchGraph02() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph2, nodeA, nodeH);
+    public void depthFirstSearchUndirectedUnweightedGraph02() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph2, nodeA, nodeH);
         Assert.assertEquals(path.size(), 8);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("B"));
@@ -366,8 +619,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchRecursiveGraph02() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph2, nodeA, nodeH);
+    public void depthFirstSearchRecursiveUndirectedUnweightedGraph02() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph2, nodeA, nodeH);
         Assert.assertEquals(path.size(), 8);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("B"));
@@ -380,8 +633,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void breadthFirstSearchGraph02() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph2, nodeA, nodeH);
+    public void breadthFirstSearchUndirectedUnweightedGraph02() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph2, nodeA, nodeH);
         Assert.assertEquals(path.size(), 3);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("Z"));
@@ -389,8 +642,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchGraph03() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph3, nodeB, nodeE);
+    public void depthFirstSearchUndirectedUnweightedGraph03() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph3, nodeB, nodeE);
         Assert.assertEquals(path.size(), 6);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
         Assert.assertTrue(path.get(1).getValue().equals("C"));
@@ -401,8 +654,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchRecursiveGraph03() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph3, nodeB, nodeE);
+    public void depthFirstSearchRecursiveUndirectedUnweightedGraph03() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph3, nodeB, nodeE);
         Assert.assertEquals(path.size(), 6);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
         Assert.assertTrue(path.get(1).getValue().equals("C"));
@@ -413,8 +666,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void breadthFirstSearchGraph03() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph3, nodeB, nodeE);
+    public void breadthFirstSearchUndirectedUnweightedGraph03() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph3, nodeB, nodeE);
         Assert.assertEquals(path.size(), 5);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
         Assert.assertTrue(path.get(1).getValue().equals("D"));
@@ -424,8 +677,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchGraph04() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph4, nodeB, nodeF);
+    public void depthFirstSearchUndirectedUnweightedGraph04() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph4, nodeB, nodeF);
         Assert.assertEquals(path.size(), 7);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
         Assert.assertTrue(path.get(1).getValue().equals("E"));
@@ -437,8 +690,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchRecursiveGraph04() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph4, nodeB, nodeF);
+    public void depthFirstSearchRecursiveUndirectedUnweightedGraph04() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph4, nodeB, nodeF);
         Assert.assertEquals(path.size(), 7);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
         Assert.assertTrue(path.get(1).getValue().equals("E"));
@@ -450,8 +703,8 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void breadthFirstSearchGraph04() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph4, nodeB, nodeF);
+    public void breadthFirstSearchUndirectedUnweightedGraph04() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph4, nodeB, nodeF);
         Assert.assertEquals(path.size(), 4);
         Assert.assertTrue(path.get(0).getValue().equals("B"));
         Assert.assertTrue(path.get(1).getValue().equals("H"));
@@ -460,58 +713,58 @@ public class GraphSearchTest {
     }
 
     @Test
-    public void depthFirstSearchGraph05() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph5, nodeA, nodeZ);
+    public void depthFirstSearchUndirectedUnweightedGraph05() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph5, nodeA, nodeZ);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
-    public void depthFirstSearchRecursiveGraph05() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph5, nodeA, nodeZ);
+    public void depthFirstSearchRecursiveUndirectedUnweightedGraph05() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph5, nodeA, nodeZ);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
-    public void breadthFirstSearchGraph05() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph5, nodeA, nodeZ);
+    public void breadthFirstSearchUndirectedUnweightedGraph05() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph5, nodeA, nodeZ);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
-    public void depthFirstSearchGraph06() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph6, nodeA, nodeF);
+    public void depthFirstSearchUndirectedUnweightedGraph06() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph6, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
     }
 
     @Test
-    public void depthFirstSearchRecursiveGraph06() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph6, nodeA, nodeF);
+    public void depthFirstSearchRecursiveUndirectedUnweightedGraph06() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph6, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
     }
 
     @Test
-    public void breadthFirstSearchGraph06() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph6, nodeA, nodeF);
+    public void breadthFirstSearchUndirectedUnweightedGraph06() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph6, nodeA, nodeF);
         Assert.assertEquals(path.size(), 2);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("F"));
     }
 
     @Test
-    public void depthFirstSearchGraph07() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph7, nodeA, nodeF);
+    public void depthFirstSearchUndirectedUnweightedGraph07() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph7, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
     }
 
     @Test
-    public void depthFirstSearchRecursiveGraph07() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph7, nodeA, nodeF);
+    public void depthFirstSearchRecursiveUndirectedUnweightedGraph07() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph7, nodeA, nodeF);
         Assert.assertEquals(path.size(), 6);
     }
 
     @Test
-    public void breadthFirstSearchGraph07() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph7, nodeA, nodeF);
+    public void breadthFirstSearchUndirectedUnweightedGraph07() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph7, nodeA, nodeF);
         Assert.assertEquals(path.size(), 4);
         Assert.assertTrue(path.get(0).getValue().equals("A"));
         Assert.assertTrue(path.get(1).getValue().equals("E"));
@@ -522,7 +775,7 @@ public class GraphSearchTest {
     @Test
     public void depthFirstSearchNullStartNode() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearch(graph5, null, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph5, null, nodeZ);
         // the expect message is thrown if the thrown var doesnt catch it's appropriate exception?
         // ie this message doesn't need to match the message of the thrown exception in GraphSearch.java, correct?
         thrown.expectMessage("expect message");
@@ -531,21 +784,21 @@ public class GraphSearchTest {
     @Test
     public void depthFirstSearchRecursiveNullStartNode() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph5, null, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph5, null, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void breadthFirstSearchNullStartNode() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.breadthFirstSearch(graph5, null, nodeZ);
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph5, null, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void depthFirstSearchNullFinishNode() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearch(graph5, nodeA, null);
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph5, nodeA, null);
         // the expect message is thrown if the thrown var doesnt catch it's appropriate exception?
         // ie this message doesn't need to match the message of the thrown exception in GraphSearch.java, correct?
         thrown.expectMessage("expect message");
@@ -554,93 +807,310 @@ public class GraphSearchTest {
     @Test
     public void depthFirstSearchRecursiveNullFinishNode() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph5, nodeA, null);
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph5, nodeA, null);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void breadthFirstSearchNullFinishNode() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.breadthFirstSearch(graph5, nodeA, null);
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph5, nodeA, null);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void depthFirstSearchOutFinishNode() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph1, nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph1, nodeA, nodeZ);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
     public void depthFirstSearchRecursiveOutFinishNode() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph1, nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph1, nodeA, nodeZ);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
     public void breadthFirstSearchOutFinishNode() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph1, nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph1, nodeA, nodeZ);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
     public void depthFirstSearchOutStartNode() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearch(graph1, nodeZ, nodeA);
+        List<GraphNode> path = GraphSearch.depthFirstSearch(UndirectedUnweightedgraph1, nodeZ, nodeA);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
     public void depthFirstSearchRecursiveOutStartNode() throws Exception {
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(graph1, nodeZ, nodeA);
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(UndirectedUnweightedgraph1, nodeZ, nodeA);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
     public void breadthFirstSearchOutStartNode() throws Exception {
-        List<Node> path = GraphSearch.breadthFirstSearch(graph1, nodeZ, nodeA);
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(UndirectedUnweightedgraph1, nodeZ, nodeA);
         Assert.assertEquals(path.size(), 0);
     }
 
     @Test
     public void depthFirstSearchNullGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearch(null, nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearch(null, nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void depthFirstSearchRecursiveNullGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(null, nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(null, nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void breadthFirstSearchNullGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.breadthFirstSearch(null, nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(null, nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void depthFirstSearchEmptyGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearch(new GraphClass(), nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearch(new GraphClass(), nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void depthFirstSearchRecursiveEmptyGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.depthFirstSearchRecursive(new GraphClass(), nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(new GraphClass(), nodeA, nodeZ);
         thrown.expectMessage("expect message");
     }
 
     @Test
     public void breadthFirstSearchEmptyGraph() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        List<Node> path = GraphSearch.breadthFirstSearch(new GraphClass(), nodeA, nodeZ);
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(new GraphClass(), nodeA, nodeZ);
         thrown.expectMessage("expect message");
+    }
+
+    @Test
+    public void depthFirstSearchDirectedUnweightedGraph08() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(DirectedUnweightedGraph8, nodeH, nodeB);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("H"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+        Assert.assertTrue(path.get(5).getValue().equals("B"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveDirectedUnweightedGraph08() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(DirectedUnweightedGraph8, nodeH, nodeB);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("H"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+        Assert.assertTrue(path.get(5).getValue().equals("B"));
+    }
+
+    @Test
+    public void breadthFirstSearchDirectedUnweightedGraph08() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(DirectedUnweightedGraph8, nodeH, nodeB);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("H"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("D"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("B"));
+    }
+
+    @Test
+    public void depthFirstSearchDirectedUnweightedGraph09() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(DirectedUnweightedGraph9, nodeE, nodeF);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("E"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveDirectedUnweightedGraph09() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(DirectedUnweightedGraph9, nodeE, nodeF);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("E"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+    }
+
+    @Test
+    public void breadthFirstSearchDirectedUnweightedGraph09() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(DirectedUnweightedGraph9, nodeE, nodeF);
+        Assert.assertEquals(path.size(), 3);
+        Assert.assertTrue(path.get(0).getValue().equals("E"));
+        Assert.assertTrue(path.get(1).getValue().equals("D"));
+        Assert.assertTrue(path.get(2).getValue().equals("F"));
+    }
+
+    @Test
+    public void depthFirstSearchDirectedUnweightedGraph10() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(DirectedUnweightedGraph10, nodeG, nodeH);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("G"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("B"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("H"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveDirectedUnweightedGraph10() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(DirectedUnweightedGraph10, nodeG, nodeH);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("G"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("B"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("H"));
+    }
+
+    @Test
+    public void breadthFirstSearchDirectedUnweightedGraph10() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(DirectedUnweightedGraph10, nodeG, nodeH);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("G"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("B"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("H"));
+    }
+
+    @Test
+    public void depthFirstSearchDirectedWeightedGraph11() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(DirectedWeightedGraph11, nodeH, nodeB);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("H"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+        Assert.assertTrue(path.get(5).getValue().equals("B"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveDirectedWeightedGraph11() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(DirectedWeightedGraph11, nodeH, nodeB);
+        Assert.assertEquals(path.size(), 6);
+        Assert.assertTrue(path.get(0).getValue().equals("H"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+        Assert.assertTrue(path.get(5).getValue().equals("B"));
+    }
+
+    @Test
+    public void breadthFirstSearchDirectedWeightedGraph11() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(DirectedWeightedGraph11, nodeH, nodeB);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("H"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("D"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("B"));
+    }
+
+    @Test
+    public void depthFirstSearchDirectedWeightedGraph12() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(DirectedWeightedGraph12, nodeE, nodeF);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("E"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveDirectedWeightedGraph12() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(DirectedWeightedGraph12, nodeE, nodeF);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("E"));
+        Assert.assertTrue(path.get(1).getValue().equals("Z"));
+        Assert.assertTrue(path.get(2).getValue().equals("G"));
+        Assert.assertTrue(path.get(3).getValue().equals("D"));
+        Assert.assertTrue(path.get(4).getValue().equals("F"));
+    }
+
+    @Test
+    public void breadthFirstSearchDirectedWeightedGraph12() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(DirectedWeightedGraph12, nodeE, nodeF);
+        Assert.assertEquals(path.size(), 3);
+        Assert.assertTrue(path.get(0).getValue().equals("E"));
+        Assert.assertTrue(path.get(1).getValue().equals("D"));
+        Assert.assertTrue(path.get(2).getValue().equals("F"));
+    }
+
+    @Test
+    public void depthFirstSearchDirectedWeightedGraph13() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(DirectedWeightedGraph13, nodeG, nodeH);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("G"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("B"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("H"));
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveDirectedWeightedGraph13() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(DirectedWeightedGraph13, nodeG, nodeH);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("G"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("B"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("H"));
+    }
+
+    @Test
+    public void breadthFirstSearchDirectedWeightedGraph13() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(DirectedWeightedGraph13, nodeG, nodeH);
+        Assert.assertEquals(path.size(), 5);
+        Assert.assertTrue(path.get(0).getValue().equals("G"));
+        Assert.assertTrue(path.get(1).getValue().equals("E"));
+        Assert.assertTrue(path.get(2).getValue().equals("B"));
+        Assert.assertTrue(path.get(3).getValue().equals("F"));
+        Assert.assertTrue(path.get(4).getValue().equals("H"));
+    }
+
+    // same as graph 13, except start at e and look for c, un connected, will need to restart
+    @Test
+    public void depthFirstSearchDirectedWeightedGraph14() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearch(DirectedWeightedGraph13, nodeE, nodeC);
+        Assert.assertEquals(path.size(), 0);
+    }
+
+    @Test
+    public void depthFirstSearchRecursiveDirectedWeightedGraph14() throws Exception {
+        List<GraphNode> path = GraphSearch.depthFirstSearchRecursive(DirectedWeightedGraph13, nodeE, nodeC);
+        Assert.assertEquals(path.size(), 0);
+    }
+
+    @Test
+    public void breadthFirstSearchDirectedWeightedGraph14() throws Exception {
+        List<GraphNode> path = GraphSearch.breadthFirstSearch(DirectedWeightedGraph13, nodeE, nodeC);
+        Assert.assertEquals(path.size(), 0);
     }
 
 }

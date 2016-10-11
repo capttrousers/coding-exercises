@@ -1,13 +1,13 @@
 package graphs;
 
-public class GraphNode<T> implements Node<T> {
+public class GraphNode<T> {
 
     private float x;
     private float y;
     private T value;
     private boolean visited;
 
-    public GraphNode(Node<T> node) {
+    public GraphNode(GraphNode<T> node) {
         setX(node.getX());
         setY(node.getY());
         setValue(node.getValue());

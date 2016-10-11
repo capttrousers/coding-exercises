@@ -4,7 +4,7 @@ import java.util.*;
 
 public class GraphSearch {
 
-    public static List<Node> depthFirstSearch(Graph graph, Node start, Node finish) {
+    public static List<GraphNode> depthFirstSearch(GraphClass graph, GraphNode start, GraphNode finish) {
 
         if (graph == null || graph.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
@@ -13,21 +13,21 @@ public class GraphSearch {
             throw new IllegalArgumentException("null start node or target node");
         }
         if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
-            return new LinkedList<Node>();
+            return new LinkedList<GraphNode>();
         }
 
         // DFS uses a stack of nodes visited
         // stack is push pop peek : peek to see
-        Stack<Node> location = new Stack<Node>();
+        Stack<GraphNode> location = new Stack<GraphNode>();
         start.visit();
         location.push(start);
 
         boolean searching = true;
         while (searching) {
-            Node currentNode = location.peek();
-            List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
+            GraphNode currentNode = location.peek();
+            List<GraphEdge> incidentEdges = graph.getIncidentEdges(currentNode);
             // getNextNode can return null
-            Node nextNode = getNextNode(incidentEdges, currentNode);
+            GraphNode nextNode = getNextNode(incidentEdges, currentNode);
             if(nextNode == null) {
                 location.pop();
                 if (location.isEmpty()) {
@@ -35,19 +35,16 @@ public class GraphSearch {
                 }
             } else if (nextNode.equals(finish)) {
                 location.push(nextNode);
-                return new LinkedList<Node>(location);
+                return new LinkedList<GraphNode>(location);
             } else {
-                // so i declared this function on the Node interface, which im using as the Type throughout
-                // this algo, but in practice the Node will actually be an instance of GraphNode which is where i
-                // have actually impleneted what .visit() does, correct?
                 nextNode.visit();
                 location.push(nextNode);
             }
         }
-        return new LinkedList<Node>();
+        return new LinkedList<GraphNode>();
     }
 
-    public static List<Node> depthFirstSearchRecursive(Graph graph, Node start, Node finish) {
+    public static List<GraphNode> depthFirstSearchRecursive(GraphClass graph, GraphNode start, GraphNode finish) {
         if (graph == null || graph.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
         }
@@ -55,48 +52,45 @@ public class GraphSearch {
             throw new IllegalArgumentException("null start node or target node");
         }
         if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
-            return new LinkedList<Node>();
+            return new LinkedList<GraphNode>();
         }
 
         // DFS uses a stack of nodes visited
         // stack is push pop peek : peek to see
-        Stack<Node> location = new Stack<Node>();
+        Stack<GraphNode> location = new Stack<GraphNode>();
         start.visit();
         location.push(start);
         return depthFirstSearchRecursive(graph, start, finish, location);
     }
 
-    public static List<Node> depthFirstSearchRecursive(Graph graph, Node start, Node finish, Stack<Node> location) {
+    public static List<GraphNode> depthFirstSearchRecursive(GraphClass graph, GraphNode start, GraphNode finish, Stack<GraphNode> location) {
 
-        Node currentNode = location.peek();
-        List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
+        GraphNode currentNode = location.peek();
+        List<GraphEdge> incidentEdges = graph.getIncidentEdges(currentNode);
         // getNextNode can return null
-        Node nextNode = getNextNode(incidentEdges, currentNode);
+        GraphNode nextNode = getNextNode(incidentEdges, currentNode);
         if (nextNode == null) {
             location.pop();
             if (location.isEmpty()) {
                 // if search has not found finish, because stack has been filled and emptied
-                return new LinkedList<Node>();
+                return new LinkedList<GraphNode>();
             }
         } else if (nextNode.equals(finish)) {
             location.push(nextNode);
-            return new LinkedList<Node>(location);
+            return new LinkedList<GraphNode>(location);
         } else {
-            // so i declared this function on the Node interface, which im using as the Type throughout
-            // this algo, but in practice the Node will actually be an instance of GraphNode which is where i
-            // have actually impleneted what .visit() does, correct?
             nextNode.visit();
             location.push(nextNode);
         }
         return depthFirstSearchRecursive(graph, start, finish, location);
     }
 
-    private static Node<String> getNextNode(List<Edge> incidentEdges, Node<String> startingNode) {
+    private static GraphNode<String> getNextNode(List<GraphEdge> incidentEdges, GraphNode<String> startingNode) {
         if (incidentEdges.isEmpty() || incidentEdges == null || startingNode == null) {
             return null;
         } else {
-            for (Edge edge : incidentEdges) {
-                Node<String> node = edge.getOtherNode(startingNode);
+            for (GraphEdge edge : incidentEdges) {
+                GraphNode<String> node = edge.getOtherNode(startingNode);
                 if (!node.isVisited()) {
                     return edge.getOtherNode(startingNode);
                 }
@@ -105,7 +99,7 @@ public class GraphSearch {
         }
     }
 
-    public static List<Node> breadthFirstSearch(Graph graph,  Node start, Node finish) {
+    public static List<GraphNode> breadthFirstSearch(GraphClass graph,  GraphNode start, GraphNode finish) {
         if (graph == null || graph.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
         }
@@ -113,27 +107,26 @@ public class GraphSearch {
             throw new IllegalArgumentException("null start node or target node");
         }
         if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
-            return new LinkedList<Node>();
+            return new LinkedList<GraphNode>();
         }
 
         // BFS uses a queue of nodes to visit
         // queue is add poll to get and remove peek to see
-        Queue<Node> nodeQueue = new LinkedList<Node>();
+        Queue<GraphNode> nodeQueue = new LinkedList<GraphNode>();
         start.visit();
         nodeQueue.add(start);
 
         // list of nodes in order to be returned
-        LinkedList<Edge> transitions = new LinkedList<Edge>();
+        LinkedList<GraphEdge> transitions = new LinkedList<GraphEdge>();
 
-        Node currentNode = nodeQueue.poll();
+        GraphNode currentNode = nodeQueue.poll();
         double distance = 0;
         while (currentNode != null) {
-            distance++;
-            List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
+            List<GraphEdge> incidentEdges = graph.getIncidentEdges(currentNode);
             // getNextNode can return null
-            Node nextNode = getNextNode(incidentEdges, currentNode);
+            GraphNode nextNode = getNextNode(incidentEdges, currentNode);
             while (nextNode != null) {
-                transitions.add(new WeightedEdge(currentNode, nextNode, distance));
+                transitions.add(new GraphEdge(currentNode, nextNode));
                 if(nextNode.equals(finish)) {
                     return getPathHome(transitions, start, finish);
                 } else {
@@ -145,18 +138,18 @@ public class GraphSearch {
             currentNode = nodeQueue.poll();
         }
         // if target was never found, return empty list
-        return new LinkedList<Node>();
+        return new LinkedList<GraphNode>();
     }
 
     // start node is unused, as this helper assumes the front of transitions is start
-    private static List<Node> getPathHome(List<Edge> transitions, Node start, Node finish) {
-        Node to = finish;
-        Node from;
-        LinkedList<Node> nodeList = new LinkedList<Node>();
+    private static List<GraphNode> getPathHome(List<GraphEdge> transitions, GraphNode start, GraphNode finish) {
+        GraphNode to = finish;
+        GraphNode from;
+        LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
         nodeList.addFirst(to);
 
         while(! transitions.isEmpty()) {
-            Edge edge = transitions.remove(transitions.size() - 1);
+            GraphEdge edge = transitions.remove(transitions.size() - 1);
             if(edge.getRightNode().equals(to)) {
                 from = edge.getLeftNode();
                 nodeList.addFirst(from);

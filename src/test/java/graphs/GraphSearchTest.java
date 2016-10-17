@@ -82,6 +82,7 @@ public class GraphSearchTest {
         //  A -> B -> C -> D -> E -> F
         //
         UndirectedUnweightedgraph1 = new GraphClass(nodesForUndirectedUnweightedGraph1, edgesForUndirectedUnweightedGraph1);
+        UndirectedUnweightedgraph1.setDirected(false);
 
         List<GraphNode> nodesForUndirectedUnweightedGraph2 = new LinkedList<GraphNode>(Arrays.asList(
                 nodeA,
@@ -118,6 +119,8 @@ public class GraphSearchTest {
         //     \------------> Z -------------/
         //
         UndirectedUnweightedgraph2 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForUndirectedUnweightedGraph2);
+        UndirectedUnweightedgraph2.setDirected(false);
+
 
         // graph 2 has all nodes A - H & Z
         List<GraphNode> nodesForUndirectedUnweightedGraph3 = nodesForUndirectedUnweightedGraph2;
@@ -159,6 +162,8 @@ public class GraphSearchTest {
         // Graph #3: see UndirectedUnweightedgraph3.png
         //
         UndirectedUnweightedgraph3 = new GraphClass(nodesForUndirectedUnweightedGraph3, edgesForUndirectedUnweightedGraph3);
+        UndirectedUnweightedgraph3.setDirected(false);
+
 
         // graph 2 has all nodes A - H & Z
         List<GraphNode> nodesForUndirectedUnweightedGraph4 = nodesForUndirectedUnweightedGraph2;
@@ -201,7 +206,7 @@ public class GraphSearchTest {
         // Graph #4: see UndirectedUnweightedgraph4.png
         //
         UndirectedUnweightedgraph4 = new GraphClass(nodesForUndirectedUnweightedGraph4, edgesForUndirectedUnweightedGraph4);
-
+        UndirectedUnweightedgraph4.setDirected(false);
 
         // graph 2 has all nodes A - H & Z
         List<GraphNode> nodesForUndirectedUnweightedGraph5 = nodesForUndirectedUnweightedGraph2;
@@ -210,7 +215,7 @@ public class GraphSearchTest {
         //
         // start and target have no path, will return empty list
         UndirectedUnweightedgraph5 = new GraphClass(nodesForUndirectedUnweightedGraph5, edgesForUndirectedUnweightedGraph1);
-
+        UndirectedUnweightedgraph5.setDirected(false);
 
 
         // graph 2 has all nodes A - H & Z
@@ -264,6 +269,8 @@ public class GraphSearchTest {
         // Graph #6: graph with nodes from graph 1, fully connected
         //
         UndirectedUnweightedgraph6 = new GraphClass(nodesForUndirectedUnweightedGraph6, edgesForUndirectedUnweightedGraph6);
+        UndirectedUnweightedgraph6.setDirected(false);
+
 
         // graph 2 has all nodes A - H & Z
         List<GraphNode> nodesForUndirectedUnweightedGraph7 = nodesForUndirectedUnweightedGraph2;
@@ -318,7 +325,7 @@ public class GraphSearchTest {
         //  Graph #7: graph7.png
         //
         UndirectedUnweightedgraph7 = new GraphClass(nodesForUndirectedUnweightedGraph7, edgesForUndirectedUnweightedGraph7);
-
+        UndirectedUnweightedgraph7.setDirected(false);
 
 
         /*
@@ -469,18 +476,18 @@ public class GraphSearchTest {
          *
          */
         List<GraphEdge> edgesForGraph11 = new LinkedList<GraphEdge>();
-        edgesForGraph11.add(edgeBetweenAandD.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenZandD.setWeighted(true).setWeight(2));
-        edgesForGraph11.add(edgeBetweenBandD.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenHandZ.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenBandH.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenCandE.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenGandD.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenZandG.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenFandB.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenDandC.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenEandD.setWeighted(true).setWeight(1));
-        edgesForGraph11.add(edgeBetweenDandF.setWeighted(true).setWeight(1));
+        edgesForGraph11.add(edgeBetweenAandD.setWeight(1));
+        edgesForGraph11.add(edgeBetweenZandD.setWeight(2));
+        edgesForGraph11.add(edgeBetweenBandD.setWeight(1));
+        edgesForGraph11.add(edgeBetweenHandZ.setWeight(1));
+        edgesForGraph11.add(edgeBetweenBandH.setWeight(1));
+        edgesForGraph11.add(edgeBetweenCandE.setWeight(1));
+        edgesForGraph11.add(edgeBetweenGandD.setWeight(1));
+        edgesForGraph11.add(edgeBetweenZandG.setWeight(1));
+        edgesForGraph11.add(edgeBetweenFandB.setWeight(1));
+        edgesForGraph11.add(edgeBetweenDandC.setWeight(1));
+        edgesForGraph11.add(edgeBetweenEandD.setWeight(1));
+        edgesForGraph11.add(edgeBetweenDandF.setWeight(1));
         DirectedWeightedGraph11 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph11);
         DirectedWeightedGraph11.setDirected(true);
         DirectedWeightedGraph11.setWeighted(true);
@@ -507,18 +514,18 @@ public class GraphSearchTest {
          *
          */
         List<GraphEdge> edgesForGraph12 = new LinkedList<GraphEdge>();
-        edgesForGraph12.add(edgeBetweenAandB.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenBandC.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenCandE.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenEandZ.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenEandD.setWeighted(true).setWeight(2));
-        edgesForGraph12.add(edgeBetweenGandD.setWeighted(true).setWeight(2));
-        edgesForGraph12.add(edgeBetweenZandG.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenHandZ.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenFandH.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenDandF.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenGandA.setWeighted(true).setWeight(1));
-        edgesForGraph12.add(edgeBetweenFandA.setWeighted(true).setWeight(1));
+        edgesForGraph12.add(edgeBetweenAandB.setWeight(1));
+        edgesForGraph12.add(edgeBetweenBandC.setWeight(1));
+        edgesForGraph12.add(edgeBetweenCandE.setWeight(1));
+        edgesForGraph12.add(edgeBetweenEandZ.setWeight(1));
+        edgesForGraph12.add(edgeBetweenEandD.setWeight(2));
+        edgesForGraph12.add(edgeBetweenGandD.setWeight(2));
+        edgesForGraph12.add(edgeBetweenZandG.setWeight(1));
+        edgesForGraph12.add(edgeBetweenHandZ.setWeight(1));
+        edgesForGraph12.add(edgeBetweenFandH.setWeight(1));
+        edgesForGraph12.add(edgeBetweenDandF.setWeight(1));
+        edgesForGraph12.add(edgeBetweenGandA.setWeight(1));
+        edgesForGraph12.add(edgeBetweenFandA.setWeight(1));
         DirectedWeightedGraph12 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph12);
         DirectedWeightedGraph12.setDirected(true);
         DirectedWeightedGraph12.setWeighted(true);
@@ -545,16 +552,16 @@ public class GraphSearchTest {
          */
 
         List<GraphEdge> edgesForGraph13 = new LinkedList<GraphEdge>();
-        edgesForGraph13.add(edgeBetweenAandD.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenAandC.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenDandC.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenBandF.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenFandH.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenZandC.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenGandE.setWeighted(true).setWeight(2));
-        edgesForGraph13.add(edgeBetweenEandB.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenDandZ.setWeighted(true).setWeight(1));
-        edgesForGraph13.add(edgeBetweenGandA.setWeighted(true).setWeight(1));
+        edgesForGraph13.add(edgeBetweenAandD.setWeight(1));
+        edgesForGraph13.add(edgeBetweenAandC.setWeight(1));
+        edgesForGraph13.add(edgeBetweenDandC.setWeight(1));
+        edgesForGraph13.add(edgeBetweenBandF.setWeight(1));
+        edgesForGraph13.add(edgeBetweenFandH.setWeight(1));
+        edgesForGraph13.add(edgeBetweenZandC.setWeight(1));
+        edgesForGraph13.add(edgeBetweenGandE.setWeight(2));
+        edgesForGraph13.add(edgeBetweenEandB.setWeight(1));
+        edgesForGraph13.add(edgeBetweenDandZ.setWeight(1));
+        edgesForGraph13.add(edgeBetweenGandA.setWeight(1));
 
         
         DirectedWeightedGraph13 = new GraphClass(nodesForUndirectedUnweightedGraph2, edgesForGraph13);

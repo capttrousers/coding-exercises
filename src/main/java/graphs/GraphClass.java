@@ -44,12 +44,21 @@ public class GraphClass {
     public void addEdge(GraphEdge edge) {
         edges.add(edge);
         if(! isDirected()) {
-            addUndirectedEdge(edge);
+            duplicateAsUndirectedEdge(edge);
         }
     }
 
-    private void addUndirectedEdge(GraphEdge edge) {
+    private void duplicateAsUndirectedEdge(GraphEdge edge) {
         edges.add(new GraphEdge(edge.getRightNode(), edge.getLeftNode(), edge.getWeight()));
+    }
+
+    public GraphClass duplicateUndirectedEdges() {
+        // since this method is public, "this" means the graph calling the method correct?
+        List<GraphEdge> edgesToCopy = new LinkedList<GraphEdge>(this.getEdges());
+        for(GraphEdge edge : edgesToCopy) {
+            duplicateAsUndirectedEdge(edge);
+        }
+        return this;
     }
 
 //    public void addEdge(GraphNode leftNode, GraphNode rightNode) {
@@ -78,12 +87,6 @@ public class GraphClass {
     // set directed will work on graph and all edges so can be done at the end
     public void setDirected(boolean directed) {
         isDirected = directed;
-        if (! isDirected) {
-            LinkedList<GraphEdge> currentEdges = new LinkedList<GraphEdge>(edges);
-            for(GraphEdge edge : currentEdges) {
-                addUndirectedEdge(edge);
-            }
-        }
     }
 
     public boolean isDirected() {

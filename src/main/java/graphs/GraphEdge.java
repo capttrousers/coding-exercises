@@ -28,6 +28,7 @@ public class GraphEdge implements Comparable<GraphEdge> {
     }
 
     public GraphEdge setWeight(double weight) {
+        this.weight = weight;
         return this;
     }
 

@@ -43,6 +43,13 @@ public class GraphClass {
 
     public void addEdge(GraphEdge edge) {
         edges.add(edge);
+        if(! isDirected()) {
+            addUndirectedEdge(edge);
+        }
+    }
+
+    private void addUndirectedEdge(GraphEdge edge) {
+        edges.add(new GraphEdge(edge.getRightNode(), edge.getLeftNode(), edge.getWeight()));
     }
 
 //    public void addEdge(GraphNode leftNode, GraphNode rightNode) {
@@ -71,8 +78,11 @@ public class GraphClass {
     // set directed will work on graph and all edges so can be done at the end
     public void setDirected(boolean directed) {
         isDirected = directed;
-        for(GraphEdge edge : edges) {
-            edge.setDirected(directed);
+        if (! isDirected) {
+            LinkedList<GraphEdge> currentEdges = new LinkedList<GraphEdge>(edges);
+            for(GraphEdge edge : currentEdges) {
+                addUndirectedEdge(edge);
+            }
         }
     }
 
@@ -92,7 +102,7 @@ public class GraphClass {
     public List<GraphEdge> getIncidentEdges(GraphNode node) {
         List<GraphEdge> incidentEdges = new LinkedList<GraphEdge>();
         for(GraphEdge edge : edges) {
-            if(edge.getLeftNode().equals(node) || (edge.getRightNode().equals(node)  && ! isDirected)) {
+            if(edge.getLeftNode().equals(node)) {
                 incidentEdges.add(edge);
             }
         }

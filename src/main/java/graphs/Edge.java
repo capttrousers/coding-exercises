@@ -67,13 +67,7 @@ public class Edge implements Comparable<Edge> {
 
     // "Note: this class has a natural ordering that is inconsistent with equals."
     public int compareTo(Edge edge) {
-        // is it necessary to specify "this." ?
-        if(edge.getWeight() > this.getWeight()) {
-            return -1;
-        } else if (this.getWeight() > edge.getWeight()){
-            return 1;
-        }
-        return 0;
+        return Double.compare(this.getWeight(), edge.getWeight());
     }
 
 }

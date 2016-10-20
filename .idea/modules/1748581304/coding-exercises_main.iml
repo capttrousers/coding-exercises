@@ -5,6 +5,7 @@
     <exclude-output />
     <content url="file:///mnt/stuff/opt/dev/code/workspace/coding-exercises/src/main">
       <sourceFolder url="file:///mnt/stuff/opt/dev/code/workspace/coding-exercises/src/main/java" isTestSource="false" />
+      <sourceFolder url="file:///mnt/stuff/opt/dev/code/workspace/coding-exercises/src/main/resources" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

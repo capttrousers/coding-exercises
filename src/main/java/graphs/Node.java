@@ -1,25 +1,25 @@
 package graphs;
 
-public class GraphNode<T> {
+public class Node<T> {
 
     private float x;
     private float y;
     private T value;
     private boolean visited;
 
-    public GraphNode(GraphNode<T> node) {
+    public Node(Node<T> node) {
         setX(node.getX());
         setY(node.getY());
         setValue(node.getValue());
     }
 
-    public GraphNode(float x, float y, T value) {
+    public Node(float x, float y, T value) {
         this.x = x;
         this.y = y;
         this.value = value;
     }
 
-    public GraphNode(T value) {
+    public Node(T value) {
         this.value = value;
     }
 

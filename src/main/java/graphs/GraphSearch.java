@@ -4,7 +4,7 @@ import java.util.*;
 
 public class GraphSearch {
 
-    public static List<GraphNode> depthFirstSearch(GraphClass graph, GraphNode start, GraphNode finish) {
+    public static List<Node> depthFirstSearch(Graph graph, Node start, Node finish) {
 
         if (graph == null || graph.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
@@ -13,21 +13,21 @@ public class GraphSearch {
             throw new IllegalArgumentException("null start node or target node");
         }
         if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
-            return new LinkedList<GraphNode>();
+            return new LinkedList<Node>();
         }
 
         // DFS uses a stack of nodes visited
         // stack is push pop peek : peek to see
-        Stack<GraphNode> location = new Stack<GraphNode>();
+        Stack<Node> location = new Stack<Node>();
         start.visit();
         location.push(start);
 
         boolean searching = true;
         while (searching) {
-            GraphNode currentNode = location.peek();
-            List<GraphEdge> incidentEdges = graph.getIncidentEdges(currentNode);
+            Node currentNode = location.peek();
+            List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
             // getNextNode can return null
-            GraphNode nextNode = getNextNode(incidentEdges, currentNode);
+            Node nextNode = getNextNode(incidentEdges, currentNode);
             if(nextNode == null) {
                 location.pop();
                 if (location.isEmpty()) {
@@ -35,16 +35,16 @@ public class GraphSearch {
                 }
             } else if (nextNode.equals(finish)) {
                 location.push(nextNode);
-                return new LinkedList<GraphNode>(location);
+                return new LinkedList<Node>(location);
             } else {
                 nextNode.visit();
                 location.push(nextNode);
             }
         }
-        return new LinkedList<GraphNode>();
+        return new LinkedList<Node>();
     }
 
-    public static List<GraphNode> depthFirstSearchRecursive(GraphClass graph, GraphNode start, GraphNode finish) {
+    public static List<Node> depthFirstSearchRecursive(Graph graph, Node start, Node finish) {
         if (graph == null || graph.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
         }
@@ -52,32 +52,32 @@ public class GraphSearch {
             throw new IllegalArgumentException("null start node or target node");
         }
         if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
-            return new LinkedList<GraphNode>();
+            return new LinkedList<Node>();
         }
 
         // DFS uses a stack of nodes visited
         // stack is push pop peek : peek to see
-        Stack<GraphNode> location = new Stack<GraphNode>();
+        Stack<Node> location = new Stack<Node>();
         start.visit();
         location.push(start);
         return depthFirstSearchRecursive(graph, start, finish, location);
     }
 
-    public static List<GraphNode> depthFirstSearchRecursive(GraphClass graph, GraphNode start, GraphNode finish, Stack<GraphNode> location) {
+    public static List<Node> depthFirstSearchRecursive(Graph graph, Node start, Node finish, Stack<Node> location) {
 
-        GraphNode currentNode = location.peek();
-        List<GraphEdge> incidentEdges = graph.getIncidentEdges(currentNode);
+        Node currentNode = location.peek();
+        List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
         // getNextNode can return null
-        GraphNode nextNode = getNextNode(incidentEdges, currentNode);
+        Node nextNode = getNextNode(incidentEdges, currentNode);
         if (nextNode == null) {
             location.pop();
             if (location.isEmpty()) {
                 // if search has not found finish, because stack has been filled and emptied
-                return new LinkedList<GraphNode>();
+                return new LinkedList<Node>();
             }
         } else if (nextNode.equals(finish)) {
             location.push(nextNode);
-            return new LinkedList<GraphNode>(location);
+            return new LinkedList<Node>(location);
         } else {
             nextNode.visit();
             location.push(nextNode);
@@ -85,12 +85,12 @@ public class GraphSearch {
         return depthFirstSearchRecursive(graph, start, finish, location);
     }
 
-    private static GraphNode<String> getNextNode(List<GraphEdge> incidentEdges, GraphNode<String> startingNode) {
+    private static Node<String> getNextNode(List<Edge> incidentEdges, Node<String> startingNode) {
         if (incidentEdges.isEmpty() || incidentEdges == null || startingNode == null) {
             return null;
         } else {
-            for (GraphEdge edge : incidentEdges) {
-                GraphNode<String> node = edge.getOtherNode(startingNode);
+            for (Edge edge : incidentEdges) {
+                Node<String> node = edge.getOtherNode(startingNode);
                 if (!node.isVisited()) {
                     return node;
                 }
@@ -99,7 +99,7 @@ public class GraphSearch {
         }
     }
 
-    public static List<GraphNode> breadthFirstSearch(GraphClass graph,  GraphNode start, GraphNode finish) {
+    public static List<Node> breadthFirstSearch(Graph graph, Node start, Node finish) {
         if (graph == null || graph.isEmpty()) {
             throw new IllegalArgumentException("empty or null graph");
         }
@@ -107,26 +107,26 @@ public class GraphSearch {
             throw new IllegalArgumentException("null start node or target node");
         }
         if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
-            return new LinkedList<GraphNode>();
+            return new LinkedList<Node>();
         }
 
         // BFS uses a queue of nodes to visit
         // queue is add poll to get and remove peek to see
-        Queue<GraphNode> nodeQueue = new LinkedList<GraphNode>();
+        Queue<Node> nodeQueue = new LinkedList<Node>();
         start.visit();
         nodeQueue.add(start);
 
         // list of nodes in order to be returned
-        LinkedList<GraphEdge> transitions = new LinkedList<GraphEdge>();
+        LinkedList<Edge> transitions = new LinkedList<Edge>();
 
-        GraphNode currentNode = nodeQueue.poll();
+        Node currentNode = nodeQueue.poll();
         double distance = 0;
         while (currentNode != null) {
-            List<GraphEdge> incidentEdges = graph.getIncidentEdges(currentNode);
+            List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
             // getNextNode can return null
-            GraphNode nextNode = getNextNode(incidentEdges, currentNode);
+            Node nextNode = getNextNode(incidentEdges, currentNode);
             while (nextNode != null) {
-                transitions.add(new GraphEdge(currentNode, nextNode));
+                transitions.add(new Edge(currentNode, nextNode));
                 if(nextNode.equals(finish)) {
                     return getPathHome(transitions, start, finish);
                 } else {
@@ -138,18 +138,18 @@ public class GraphSearch {
             currentNode = nodeQueue.poll();
         }
         // if target was never found, return empty list
-        return new LinkedList<GraphNode>();
+        return new LinkedList<Node>();
     }
 
     // start node is unused, as this helper assumes the front of transitions is start
-    private static List<GraphNode> getPathHome(List<GraphEdge> transitions, GraphNode start, GraphNode finish) {
-        GraphNode to = finish;
-        GraphNode from;
-        LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
+    private static List<Node> getPathHome(List<Edge> transitions, Node start, Node finish) {
+        Node to = finish;
+        Node from;
+        LinkedList<Node> nodeList = new LinkedList<Node>();
         nodeList.addFirst(to);
 
         while(! transitions.isEmpty()) {
-            GraphEdge edge = transitions.remove(transitions.size() - 1);
+            Edge edge = transitions.remove(transitions.size() - 1);
             if(edge.getRightNode().equals(to)) {
                 from = edge.getLeftNode();
                 nodeList.addFirst(from);

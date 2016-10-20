@@ -16,9 +16,21 @@ public class GraphClass {
     }
 
     public GraphClass(List<GraphNode> nodes, List<GraphEdge> edges) {
-        this.edges = edges;
+        // if no flag for isDirected, default false
+        this(nodes, edges, false);
+    }
+
+    public GraphClass(List<GraphNode> nodes, List<GraphEdge> edges, boolean isDirected) {
         this.nodes = nodes;
-        setDirected(false);
+        setDirected(isDirected);
+        if(isDirected()) {
+            this.edges = edges;
+        } else {
+            this.edges = new ArrayList<GraphEdge>();
+            for(GraphEdge edge : edges) {
+                addEdge(edge);
+            }
+        }
         setWeighted(false);
     }
 
@@ -44,24 +56,11 @@ public class GraphClass {
     public void addEdge(GraphEdge edge) {
         edges.add(edge);
         if(! isDirected()) {
-            duplicateAsUndirectedEdge(edge);
+            edges.add(new GraphEdge(edge.getRightNode(), edge.getLeftNode(), edge.getWeight()));
         }
     }
 
-    private void duplicateAsUndirectedEdge(GraphEdge edge) {
-        edges.add(new GraphEdge(edge.getRightNode(), edge.getLeftNode(), edge.getWeight()));
-    }
-
-    public GraphClass duplicateUndirectedEdges() {
-        // since this method is public, "this" means the graph calling the method correct?
-        List<GraphEdge> edgesToCopy = new LinkedList<GraphEdge>(this.getEdges());
-        for(GraphEdge edge : edgesToCopy) {
-            duplicateAsUndirectedEdge(edge);
-        }
-        return this;
-    }
-
-//    public void addEdge(GraphNode leftNode, GraphNode rightNode) {
+    //    public void addEdge(GraphNode leftNode, GraphNode rightNode) {
 ////         weight is the sqrt( ( left.x - right.x) ^ 2 + (left.y - right.y) ^ 2)
 //        double weight = Math.sqrt(Math.pow(leftNode.getX() - rightNode.getX(), 2) + Math.pow((leftNode.getY() - rightNode.getY()),2));
 //        edges.add(new GraphEdge(leftNode, rightNode, weight));
@@ -85,8 +84,8 @@ public class GraphClass {
     }
 
     // set directed will work on graph and all edges so can be done at the end
-    public void setDirected(boolean directed) {
-        isDirected = directed;
+    public void setDirected(boolean isDirected) {
+        this.isDirected = isDirected;
     }
 
     public boolean isDirected() {

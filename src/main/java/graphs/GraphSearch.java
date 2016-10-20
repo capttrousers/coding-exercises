@@ -92,7 +92,7 @@ public class GraphSearch {
             for (GraphEdge edge : incidentEdges) {
                 GraphNode<String> node = edge.getOtherNode(startingNode);
                 if (!node.isVisited()) {
-                    return edge.getOtherNode(startingNode);
+                    return node;
                 }
             }
             return null;

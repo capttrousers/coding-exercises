@@ -226,7 +226,6 @@ public class GraphSearch {
                     double newDistance = currentDistance + edge.getWeight();
                     if(newDistance < distanceMap.get(nextNode)) {
                         distanceMap.put(nextNode, newDistance);
-                        // previousNodeMap will be a map of all nodes to their previous node
                         previousNodeMap.put(nextNode, currentNode);
                     }
                 }

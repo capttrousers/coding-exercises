@@ -53,3 +53,4 @@ gradle-app.setting
 
 # gimp image file to make pngs of graphs for tests
 *.xcf
+.idea/

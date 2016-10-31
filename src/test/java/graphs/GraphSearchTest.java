@@ -491,7 +491,7 @@ public class GraphSearchTest {
         //
         // Graph #11: directed and weighted
         //
-        
+
         /*
          * graph 9 but weighted
          * 12 edges
@@ -528,8 +528,8 @@ public class GraphSearchTest {
         //
         // Graph #12: directed and weighted
         //
-        
-        
+
+
         /*
          * graph 10 but weighted
          * 10 edges
@@ -558,7 +558,7 @@ public class GraphSearchTest {
         edgesForGraph13.add(edgeBetweenDandZ.setWeight(1));
         edgesForGraph13.add(edgeBetweenGandA.setWeight(1));
 
-        
+
         DirectedWeightedGraph13 = new Graph(nodesForUndirectedUnweightedGraph2, edgesForGraph13, true);
         DirectedWeightedGraph13.setWeighted(true);
 

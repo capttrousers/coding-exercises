@@ -1,6 +1,7 @@
 package graphs;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GraphSearch {
 
@@ -157,5 +158,104 @@ public class GraphSearch {
             }
         }
         return nodeList;
+    }
+
+
+    /*
+        djikstras algo:
+        takes: graph, source, target
+
+        map of V to distance from source
+            - instantiate at MAX_INT
+        map of V's previous node
+
+        set of V
+
+        // set source distance to zero
+        distanceMap.put(source, 0)
+        while(! setOfV.isEmpty())
+
+            Node currentNode = setOfV.pop()
+            update distance values for all nodes from nextNode
+            ie get incident edges and
+            update distance for each node = min(distance(node), distance(currentNode) + edge(currentNode, nextNode).getWeight())
+                if distance < current distance + edge weight
+                    update distance
+                    update previous node
+
+            // sort algo that takes list of nodes and map to their current distances and sorts nodes
+            find next node that is ! in settled and shortest distance (ie distance(currentNode) + edge(currentNode, nextNode).getWeight())
+            shortest distance nextNode gets added to settled
+
+        eventually every node will have a non infinite distance from source
+
+
+     */
+
+    public static List<Node> djikstraShortestPath(Graph graph, Node start, Node finish) {
+        if (graph == null || graph.isEmpty()) {
+            throw new IllegalArgumentException("empty or null graph");
+        }
+        if(start == null || finish == null) {
+            throw new IllegalArgumentException("null start node or target node");
+        }
+        if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
+            return new LinkedList();
+        }
+
+        LinkedList<Node> nodes = new LinkedList<>(graph.getNodes());
+
+        HashMap<Node, Double> distanceMap = new HashMap<>();
+        for(Node node : nodes) {
+            distanceMap.put(node, Double.valueOf(Double.MAX_VALUE));
+        }
+        HashMap<Node, Node> previousNodeMap = new HashMap<>();
+
+        distanceMap.put(start, Double.valueOf(0));
+        while(! distanceMap.isEmpty()) {
+            Node currentNode = getShortestDistanceNode(distanceMap);
+            if(currentNode.equals(finish)) {
+                break;
+            }
+            double currentDistance = distanceMap.get(currentNode);
+            distanceMap.remove(currentNode);
+            List<Edge> incidentEdges = graph.getIncidentEdges(currentNode);
+            for(Edge edge : incidentEdges) {
+                Node nextNode = edge.getRightNode();
+                if(distanceMap.containsKey(nextNode)){
+                    double newDistance = currentDistance + edge.getWeight();
+                    if(newDistance < distanceMap.get(nextNode)) {
+                        distanceMap.put(nextNode, newDistance);
+                        // previousNodeMap will be a map of all nodes to their previous node
+                        previousNodeMap.put(nextNode, currentNode);
+                    }
+                }
+            }
+        }
+        if(! previousNodeMap.containsKey(finish)) {
+            return new LinkedList<Node>();
+        }
+        LinkedList<Edge> transitions = new LinkedList<Edge>();
+        HashSet<Node> keys = new HashSet<Node>(previousNodeMap.keySet());
+        Node nextNode = finish;
+        keys.remove(nextNode);
+        while(! keys.isEmpty()) {
+            Node currentNode = previousNodeMap.get(nextNode);
+            transitions.addFirst(new Edge(currentNode, nextNode));
+            if(currentNode.equals(start)) {
+                break;
+            }
+            nextNode = currentNode;
+            keys.remove(nextNode);
+        }
+        return getPathHome(transitions, start, finish);
+    }
+
+    private static Node getShortestDistanceNode(HashMap<Node, Double> nodeMap) {
+        return nodeMap.entrySet()
+               .stream()
+               .sorted(Map.Entry.comparingByValue())
+               .findFirst().get().getKey();
+
     }
 }

@@ -15,102 +15,36 @@ public class BuildingsCatchingWater {
         if(buildings == null) {
             throw new IllegalArgumentException("invalid input array of buildings");
         }
-        if(buildings.length < 3) {
+        int len = buildings.length;
+        if(len < 3) {
             return 0;
         }
-        int[] newBuildings = trim(buildings);
-        if(newBuildings.length == 0) {
-            return 0;
-        }
-        return BCWIncremental(newBuildings);
-    }
-
-    private static int BCWRecursive(int[] buildings, int left, int right) {
-        if(! (right - left > 1)) {
-            return 0;
-        }
-        int minHeight = Math.min(buildings[left], buildings[right]);
-        // check for building C that is taller than min height of left and right
-        for(int i = left + 1; i < right; i++){
-            if(buildings[i] > minHeight) {
-                return BCWRecursive(buildings, left, i) + BCWRecursive(buildings, i, right);
-            }
-        }
-        // find building C that is tallest building between left and right
-        int maxHeight = 0;
-        int maxHeightIndex = left + 1;
-        for(int i = maxHeightIndex; i < right; i++){
-            if(buildings[i] > maxHeight) {
-                maxHeightIndex = i;
-                maxHeight = buildings[i];
-            }
-        }
-        int fill = ((right - left - 1) * (minHeight - maxHeight));
-        return fill + BCWRecursive(buildings, left, maxHeightIndex) + BCWRecursive(buildings, maxHeightIndex, right);
-    }
-
-    private static int BCWIncremental(int[] buildings){
         int total = 0;
-        int left = 0;
-        int right = buildings.length - 1;
-        int maxHeight = buildings[left];
-        int index = left;
-        int increment = 1;
-        // max height will be the minimum between left and right
-        // we will always want to be incrementing from smaller bookend to larger bookend
-        if(buildings[right] < maxHeight) {
-            maxHeight = buildings[right];
-            increment *= -1;
-            index = right;
-        }
-        while(left != right) {
-            index += increment;
-            if(buildings[index] >= maxHeight) {
-                maxHeight = buildings[index];
-                if(increment > 0) {
-                    left = index;
-                    if(buildings[right] < maxHeight) {
-                        maxHeight = buildings[right];
-                        increment *= -1;
-                        index = right;
-                    }
-                } else {
-                    right = index;
-                    if(buildings[left] < maxHeight) {
-                        maxHeight = buildings[left];
-                        increment *= -1;
-                        index = left;
-                    }
-                }
-            } else {
-                total += maxHeight - buildings[index];
-            }
 
+        int[] maxBuildingHeight = new int[len];
+        int maxLeft = 0;
+        // this could be optimized by putting both maxLeft and maxRight in the same loop and handle the index i
+        for (int i = 0; i < len; i++) {
+            maxBuildingHeight[i] = maxLeft;
+            if(buildings[i] > maxBuildingHeight[i]) {
+                maxLeft = buildings[i];
+                maxBuildingHeight[i] = maxLeft;
+            }
+        }
+        int maxRight = 0;
+        for (int i = len - 1; i >= 0; i--) {
+            if(maxRight < maxBuildingHeight[i]) {
+                maxBuildingHeight[i] = maxRight;
+            }
+            if(buildings[i] > maxBuildingHeight[i]) {
+                maxRight = buildings[i];
+                maxBuildingHeight[i] = maxRight;
+            }
+        }
+        for(int i = 0; i < len; i++) {
+            total += maxBuildingHeight[i] - buildings[i];
         }
         return total;
     }
-
-    private static int[] trim(int[] buildings) {
-        int left = 0;
-        int right = buildings.length - 1;
-
-        while(! (buildings[left] > buildings[left + 1] && buildings[right] > buildings[right - 1])) {
-            if (buildings[left] <= buildings[left + 1]) {
-                left++;
-            }
-            if (buildings[right] <= buildings[right - 1]) {
-                right--;
-            }
-            if(left == right) {
-                return new int[]{};
-            }
-        }
-        int[] newBuildings = new int[right - left + 1];
-        for(int i = 0; i < newBuildings.length; i++) {
-            newBuildings[i] = buildings[left + i];
-        }
-        return newBuildings;
-    }
-
 
 }

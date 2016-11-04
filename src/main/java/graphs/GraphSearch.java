@@ -200,7 +200,7 @@ public class GraphSearch {
             throw new IllegalArgumentException("null start node or target node");
         }
         if(! (graph.getNodes().contains(start) && graph.getNodes().contains(finish))) {
-            return new LinkedList();
+            throw new IllegalArgumentException("either start node or target node are not contained in graph");
         }
 
         LinkedList<Node> nodes = new LinkedList<>(graph.getNodes());

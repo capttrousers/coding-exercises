@@ -1,5 +1,7 @@
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Tests for the Buildings Catching Water problem.
@@ -63,6 +65,10 @@ import org.junit.Test;
  */
 public class BuildingsCatchingWaterTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+
     @Test
     public void testCase1() {
         int[] buildings = new int[]{3, 2, 1, 0, 1, 2, 3};
@@ -95,6 +101,35 @@ public class BuildingsCatchingWaterTest {
     public void testCase5() {
         int[] buildings = new int[]{3, 1, 2, 1, 2, 4, 1, 2, 3, 5};
         int   expectedWaterCaught = 12;
+        Assert.assertEquals(expectedWaterCaught, BuildingsCatchingWater.compute(buildings));
+    }
+
+    @Test
+    public void testCaseNullArray() {
+        thrown.expect(IllegalArgumentException.class);
+        int[] buildings = null;
+        BuildingsCatchingWater.compute(buildings);
+        thrown.expectMessage("invalid inputs to compute(), null buildings");
+    }
+
+    @Test
+    public void testCaseEmptyArray() {
+        int[] buildings = {};
+        int   expectedWaterCaught = 0;
+        Assert.assertEquals(expectedWaterCaught, BuildingsCatchingWater.compute(buildings));
+    }
+
+    @Test
+    public void testCaseOneBuilding() {
+        int[] buildings = new int[]{1};
+        int   expectedWaterCaught = 0;
+        Assert.assertEquals(expectedWaterCaught, BuildingsCatchingWater.compute(buildings));
+    }
+
+    @Test
+    public void testCaseTwoBuildings() {
+        int[] buildings = new int[]{3, 1};
+        int   expectedWaterCaught = 0;
         Assert.assertEquals(expectedWaterCaught, BuildingsCatchingWater.compute(buildings));
     }
 }

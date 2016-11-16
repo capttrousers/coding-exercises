@@ -94,6 +94,7 @@ class PartitioningPalindromes {
                 "abb" "c" "ccdddd"
                 "ab" "b" "cccdddd"
                 "a" "b" "bcccdddd"
+                "a" "bbcccdddd"
 
 
 
@@ -107,6 +108,14 @@ class PartitioningPalindromes {
         return palindromes;
     }
 
+    private static boolean isPalindrome(List<String> input) {
+        for (String partition : input) {
+            if(! isPalindrome(partition)) {
+                return false;
+            }
+        }
+        return true;
+    }
     private static boolean isPalindrome(String input) {
         char[] str = input.toCharArray();
         int left, right;

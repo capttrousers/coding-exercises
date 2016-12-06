@@ -5,107 +5,65 @@ class PartitioningPalindromes {
     /**
      * Given a string, print all palindromic partitions.
      */
-    public static List<List<String>> partition(String input) {
-        List<List<String>> palindromes = new LinkedList<List<String>>();
-        /*
-               1. first start with exploded string
-               or
-               2. first start with full string
+    public static List<List<String>> partition(String input) throws IllegalArgumentException {
+        if(input.isEmpty() || input == null){
+            throw new IllegalArgumentException("invalid inputs to partition(), requires string of length >= 1");
+        }
 
-               full string:
-                "abbcccdddd"
-                palLength = n = 10
-                isPalindrome?
+        // solution is a single possible palindromic partition
+        // palindromic partition is a way to split chars of input string that still contains all palindromes
+        List<String> solution = new LinkedList<>();
 
-                n - 1
-                "a" "bbcccdddd"
-                "abbcccddd" "d"
+        // palindromes is all the possible solutions for str of length = n
+        List<List<String>> output = new LinkedList<>();
+        if(input.length() == 1) {
+            solution.add(input);
+            output.add(solution);
+            return output;
+        }
 
-                n - 2
-                "ab" "bcccdddd"
-                "a" "b" "bcccdddd"
-                "a" "bbcccddd" "d"
-                "abbcccdd" "dd"
-                "abbcccdd" "d" "d"
+        // we create a List of outputs for each substring of length 1 -> n
+        List<List<List<String>>> outputList = new LinkedList<>();
 
-                n - 3
-                "abb" "cccdddd"
-                "a" "bb" "cccdddd"
-                "ab" "b" "cccdddd"
-                "a" "b" "b" "cccdddd"
-                "ab" "bcccddd" "d"
-                "a" "b" "bcccddd" "d"
-                "a" "bbcccdd" "dd"
-                "a" "bbcccdd" "d" "d"
-                "abbcccd" "ddd"
-
-                n - 4
-                "abbc" "ccdddd"
-                "abb" "cccddd" "d"
-                "ab" "bcccdd" "dd"
-                "a" "bbcccd" "ddd"
-                "abbccc" "dddd"
-
-                n - 5
-                "abbcc" "cdddd"
-                "abbc" "ccddd" "d"
-                "abb" "cccdd" "dd"
-                "ab" "bcccd" "ddd"
-                "a" "bbccc" "dddd"
-                "abbcc" "cdddd"
-
-                n - 6
-                "abbccc" "dddd"
-                "abbcc" "cddd" "d"
-                "abbc" "ccdd" "dd"
-                "abb" "cccd" "ddd"
-                "ab" "bccc" "dddd"
-                "a" "bbcc" "cdddd"
-                "abbc" "ccdddd"
-
-                n - 7
-                "abbcccd" "ddd"
-                "abbccc" "ddd" "d"
-                "abbcc" "cdd" "dd"
-                "abbc" "ccd" "ddd"
-                "abb" "ccc" "dddd"
-                "ab" "bcc" "cdddd"
-                "a" "bbc" "ccdddd"
-                "abb" "cccdddd"
-
-                n - 8
-                "abbcccdd" "dd"
-                "abbcccd" "dd" "d"
-                "abbccc" "dd" "dd"
-                "abbcc" "cd" "ddd"
-                "abbc" "cc" "dddd"
-                "abb" "cc" "cdddd"
-                "ab" "bc" "ccdddd"
-                "a" "bb" "cccdddd"
-                "ab" "bcccdddd"
-
-                n - 9
-                "abbcccddd" "d"
-                "abbcccdd" "d" d"
-                "abbcccd" "d" "dd"
-                "abbccc" "d" "ddd"
-                "abbcc" "c" "dddd"
-                "abbc" "c" "cdddd"
-                "abb" "c" "ccdddd"
-                "ab" "b" "cccdddd"
-                "a" "b" "bcccdddd"
-                "a" "bbcccdddd"
-
-
-
-
-
-
-
-
-         */
-
-        return palindromes;
+        // string.substring is 0 indexed, exclusive top end
+        solution.add(input.substring(0,1));
+        output.add(solution);
+        outputList.add(output);
+        // cursor is 0 indexed, like input string, and starts at second char bc input.length > 1
+        int cursor = 1;
+        while(cursor < input.length()) {
+            String newChar = input.substring(cursor, cursor + 1);
+            // first add new char to all solutions from previous output
+            // 1. copy output to newOutput
+            // 2. for each solution in output:append new char to solution, add new solution to newOutput
+            List<List<String>> newOutput = new LinkedList<>();
+            for (List<String> subSolution : output) {
+                subSolution.add(newChar);
+                newOutput.add(subSolution);
+            }
+            // then check all possible substrings from right to left for palindromes
+            for(int pivot = cursor - 1; pivot >= 0; pivot--) {
+                String mirror = input.substring(pivot, pivot + 1);
+                if(mirror.equals(newChar) && isPalindrome(input.substring(pivot + 1, cursor))) {
+                    String palindrome = input.substring(pivot, cursor + 1);
+                    if(pivot == 0) {
+                        solution.clear();
+                        solution.add(palindrome);
+                        newOutput.add(solution);
+                    } else {
+                        output = outputList.get(pivot - 1);
+                        for (List<String> subSolution : output) {
+                            subSolution.add(palindrome);
+                            newOutput.add(subSolution);
+                        }
+                    }
+                }
+            }
+            outputList.add(newOutput);
+            cursor++;
+        }
+        // return output for string length = n, which is all palindromes for input string
+        return output;
     }
 
     private static boolean isPalindrome(List<String> input) {
@@ -117,6 +75,9 @@ class PartitioningPalindromes {
         return true;
     }
     private static boolean isPalindrome(String input) {
+        if(input.isEmpty()) {
+            return true;
+        }
         char[] str = input.toCharArray();
         int left, right;
         if(str.length % 2 == 1) {

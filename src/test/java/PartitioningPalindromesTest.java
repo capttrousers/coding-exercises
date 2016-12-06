@@ -8,6 +8,8 @@ public class PartitioningPalindromesTest {
 
     public void compareExpectedWithActual(List<List<String>> expected, List<List<String>> actual) {
         Assert.assertTrue("Size between expected and actual needs to match", expected.size() == actual.size());
+        System.out.print("expected size is " + expected.size());
+        System.out.print("actual size is " + actual.size());
         for (List<String> expectedPartitioning : expected) {
             String errorMessage = "Failed to find: '" + expectedPartitioning + "' in actuals";
             Assert.assertTrue(errorMessage, actual.contains(expectedPartitioning));

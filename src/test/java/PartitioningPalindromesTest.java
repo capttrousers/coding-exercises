@@ -7,9 +7,8 @@ import java.util.List;
 public class PartitioningPalindromesTest {
 
     public void compareExpectedWithActual(List<List<String>> expected, List<List<String>> actual) {
+        System.out.print("expected size is " + expected.size() + " and actual size is " + actual.size());
         Assert.assertTrue("Size between expected and actual needs to match", expected.size() == actual.size());
-        System.out.print("expected size is " + expected.size());
-        System.out.print("actual size is " + actual.size());
         for (List<String> expectedPartitioning : expected) {
             String errorMessage = "Failed to find: '" + expectedPartitioning + "' in actuals";
             Assert.assertTrue(errorMessage, actual.contains(expectedPartitioning));
@@ -44,7 +43,7 @@ public class PartitioningPalindromesTest {
 
     @Test
     public void testCase3() {
-        String input = "abbcccdddd";
+        String input = "bbcccdddd";
         // this problem is an example of combinatorial explosion
         List<List<String>> expected = Arrays.asList(
                 // varying the 'd' piece of input only

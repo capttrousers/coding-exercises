@@ -38,8 +38,9 @@ class PartitioningPalindromes {
             // 2. for each solution in output:append new char to solution, add new solution to newOutput
             List<List<String>> newOutput = new LinkedList<>();
             for (List<String> subSolution : output) {
-                subSolution.add(newChar);
-                newOutput.add(subSolution);
+                solution = new LinkedList<>(subSolution);
+                solution.add(newChar);
+                newOutput.add(solution);
             }
             // then check all possible substrings from right to left for palindromes
             for(int pivot = cursor - 1; pivot >= 0; pivot--) {
@@ -47,19 +48,21 @@ class PartitioningPalindromes {
                 if(mirror.equals(newChar) && isPalindrome(input.substring(pivot + 1, cursor))) {
                     String palindrome = input.substring(pivot, cursor + 1);
                     if(pivot == 0) {
-                        solution.clear();
+                        solution = new LinkedList<>();
                         solution.add(palindrome);
                         newOutput.add(solution);
                     } else {
                         output = outputList.get(pivot - 1);
                         for (List<String> subSolution : output) {
-                            subSolution.add(palindrome);
-                            newOutput.add(subSolution);
+                            solution = new LinkedList<>(subSolution);
+                            solution.add(palindrome);
+                            newOutput.add(solution);
                         }
                     }
                 }
             }
             outputList.add(newOutput);
+            output = newOutput;
             cursor++;
         }
         // return output for string length = n, which is all palindromes for input string

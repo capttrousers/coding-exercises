@@ -69,6 +69,55 @@ class PartitioningPalindromes {
         return output;
     }
 
+    public static List<List<String>> partitionBinaryMethod(String input) throws IllegalArgumentException {
+        List<List<String>> output = new LinkedList<>();
+        // binary method makes a binary number with n - 1 bits, to act as boolean flags
+        // if the flag is 1 then there is a slice in the string at that space between characters
+        // iterate from max value of binary number of bits n - 1, i--, i > 0, and check possible solution
+
+        int i = (int) Math.pow(2, input.length() - 1) - 1;
+        while(i >= 0) {
+            String bits = Integer.toBinaryString(i);
+            // bits is string representation of i in binary
+            // as we decrement, we will need to 0 pad the left of bits
+            if(bits.length() < input.length() - 1) {
+                // should use string builder
+                String pad = "";
+                int padLength = input.length() - 1 - bits.length();
+                for(int j = padLength; j > 0; j--) {
+                    pad += "0";
+                }
+                bits = pad + bits;
+            }
+
+            // solution is a unique way to split input string into palindromic partitions
+            List<String> solution = new LinkedList<>();
+            // take binary string of splits and apply to input
+            // ints c and s, cursor and scissors, cursor is last slice, scissors increments
+            // when scissors finds a 1 in bit string, cuts substring from cursor to scissors
+            // then cursor gets moved up to scissors, add substring to solution
+            for(int s = 0, c = 0; s < bits.length(); s++) {
+                if(bits.charAt(s) == '1') {
+                    String slice = input.substring(c, s + 1);
+                    c = s + 1;
+                    solution.add(slice);
+                }
+                if (bits.length() == s + 1) {
+                    // s is at last char and last char is 0, just grab end of input from cursor
+                    String slice = input.substring(c);
+                    solution.add(slice);
+                }
+            }
+
+            // if solution is palindromic, add to output List<List<String>>
+            if(isPalindrome(solution)) {
+                output.add(solution);
+            }
+            i--;
+        }
+
+        return output;
+    }
     private static boolean isPalindrome(List<String> input) {
         for (String partition : input) {
             if(! isPalindrome(partition)) {
